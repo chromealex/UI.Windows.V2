@@ -66,7 +66,7 @@ namespace UnityEditor.UI.Windows {
             if (this.listModules == null) {
                 
                 var componentsProp = this.componentModules.FindPropertyRelative("modules");
-                if (componentsProp.arraySize != 0) {
+                //if (componentsProp.arraySize != 0) {
 
                     this.serializedObject.Update();
                     this.componentModules.FindPropertyRelative("windowComponent").objectReferenceValue = this.componentModules.serializedObject.targetObject;
@@ -82,7 +82,7 @@ namespace UnityEditor.UI.Windows {
                             var idx = rList.index;
                             var prop = componentsProp.GetArrayElementAtIndex(idx);
                             prop.objectReferenceValue = null;
-
+                            
                         }
 
                     };
@@ -151,10 +151,12 @@ namespace UnityEditor.UI.Windows {
 
                         var prop = componentsProp.GetArrayElementAtIndex(index);
                         if (prop.objectReferenceValue != null) {
-
+                            
                             var so = new SerializedObject(prop.objectReferenceValue);
                             so.Update();
                             
+                            so.FindProperty("windowComponent").objectReferenceValue = this.serializedObject.targetObject;
+
                             var iterator = so.GetIterator();
                             iterator.NextVisible(true);
 
@@ -211,7 +213,7 @@ namespace UnityEditor.UI.Windows {
                     };
                     this.listModules.drawHeaderCallback = (rect) => { GUI.Label(rect, "Modules"); };
 
-                }
+                //}
 
             }
     

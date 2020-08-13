@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_UI.Windows.V2.1414058355.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Example" t="Include">
+          <e p="MainScreen" t="Include">
+            <e p="MainScreen.cs" t="Include" />
+          </e>
+          <e p="Modules" t="Include">
+            <e p="BackgroundClosable.cs" t="Include" />
+          </e>
+          <e p="OpenWindow.cs" t="Include" />
+        </e>
+        <e p="UI.Windows" t="Include">
+          <e p="Editor" t="Include">
+            <e p="Components" t="Include">
+              <e p="WindowComponentModuleEditor.cs" t="Include" />
+            </e>
+            <e p="Core" t="Include">
+              <e p="WindowSystemEditor.cs" t="Include" />
+              <e p="WindowSystemWindowComponentEditor.cs" t="Include" />
+              <e p="WindowSystemWindowLayoutEditor.cs" t="Include" />
+              <e p="WindowSystemWindowLayoutPreferencesEditor.cs" t="Include" />
+              <e p="WindowSystemWindowModuleEditor.cs" t="Include" />
+              <e p="WindowSystemWindowScreenEditor.cs" t="Include" />
+            </e>
+            <e p="Drawers" t="Include">
+              <e p="WindowSystemAspectsPropertyDrawer.cs" t="Include" />
+              <e p="WindowSystemLayerPropertyDrawer.cs" t="Include" />
+              <e p="WindowSystemLayoutPropertyDrawer.cs" t="Include" />
+              <e p="WindowSystemResourcesResourcePropertyDrawer.cs" t="Include" />
+              <e p="WindowSystemSearchTypePopupDrawer.cs" t="Include" />
+              <e p="WindowSystemSidePropertyDrawer.cs" t="Include" />
+              <e p="WindowSystemTargetsPropertyDrawer.cs" t="Include" />
+            </e>
+            <e p="Modules" t="Include">
+              <e p="WindowSystemPoolsEditor.cs" t="Include" />
+              <e p="WindowSystemResourcesEditor.cs" t="Include" />
+            </e>
+            <e p="UI.Windows.Editor.asmdef" t="Include" />
+            <e p="UnityEditor" t="Include">
+              <e p="WindowSystemCanvasRendererEditor.cs" t="Include" />
+            </e>
+            <e p="Utilities" t="Include">
+              <e p="EditorHelpers.cs" t="Include" />
+              <e p="GUILayoutExt.cs" t="Include" />
+              <e p="WindowSystemTweenerEditor.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Runtime" t="Include">
+            <e p="Animations" t="Include">
+              <e p="AlphaAnimationParameters.cs" t="Include" />
+              <e p="AnimationParameters.cs" t="Include" />
+              <e p="WindowObjectAnimation.cs" t="Include" />
+            </e>
+            <e p="Attirbutes" t="Include">
+              <e p="SearchAssetsByTypePopupAttribute.cs" t="Include" />
+            </e>
+            <e p="Components" t="Include">
+              <e p="Basic" t="Include">
+                <e p="Base" t="Include">
+                  <e p="ListBaseComponent.cs" t="Include" />
+                </e>
+                <e p="ButtonComponent.cs" t="Include" />
+                <e p="CheckboxComponent.cs" t="Include" />
+                <e p="DropdownComponent.cs" t="Include" />
+                <e p="ImageComponent.cs" t="Include" />
+                <e p="ListComponent.cs" t="Include" />
+                <e p="ListModules" t="Include">
+                  <e p="Base" t="Include">
+                    <e p="ListBaseComponentModule.cs" t="Include" />
+                  </e>
+                  <e p="ListArrangementComponentModule.cs" t="Include" />
+                  <e p="ListScrollableComponentModule.cs" t="Include" />
+                </e>
+                <e p="ProgressComponent.cs" t="Include" />
+                <e p="TextComponent.cs" t="Include" />
+              </e>
+              <e p="Generic" t="Include">
+                <e p="GenericComponent.cs" t="Include" />
+                <e p="LinkerComponent.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Core" t="Include">
+              <e p="WindowBase.cs" t="Include" />
+              <e p="WindowComponent.cs" t="Include" />
+              <e p="WindowLayout.cs" t="Include" />
+              <e p="WindowLayoutElement.cs" t="Include" />
+              <e p="WindowLayoutPreferences.cs" t="Include" />
+              <e p="WindowObject.cs" t="Include" />
+              <e p="WindowSystem.cs" t="Include" />
+              <e p="WindowSystemSettings.cs" t="Include" />
+              <e p="WindowSystemTarget.cs" t="Include" />
+              <e p="WindowSystemTargets.cs" t="Include" />
+            </e>
+            <e p="Modules" t="Include">
+              <e p="WindowSystemBreadcrumbs.cs" t="Include" />
+              <e p="WindowSystemEvents.cs" t="Include" />
+              <e p="WindowSystemModules.cs" t="Include" />
+              <e p="WindowSystemPools.cs" t="Include" />
+              <e p="WindowSystemResources.cs" t="Include" />
+            </e>
+            <e p="Types" t="Include">
+              <e p="LayoutWindowType.cs" t="Include" />
+            </e>
+            <e p="UI.Windows.asmdef" t="Include" />
+            <e p="Utilities" t="Include">
+              <e p="Coroutines.cs" t="Include" />
+              <e p="Tweener.cs" t="Include" />
+              <e p="Types.cs" t="Include" />
+              <e p="UIWSMath.cs" t="Include" />
+              <e p="UIWSUtils.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
+      <e p="UI.Windows.csproj" t="IncludeRecursive" />
+      <e p="UI.Windows.Editor.csproj" t="IncludeRecursive" />
+      <e p="UI.Windows.V2.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>

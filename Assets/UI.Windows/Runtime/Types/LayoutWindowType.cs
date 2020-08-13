@@ -478,7 +478,7 @@ namespace UnityEngine.UI.Windows.WindowTypes {
             used.Add(windowLayout);
 
             // Validate tags
-            for (int j = 0; j < layoutItem.components.Length; ++j) {
+            for (int j = layoutItem.components.Length - 1; j >= 0; --j) {
 
                 var com = layoutItem.components[j];
                 if (com.localTag == 0 || layoutItem.components.Count(x => x.localTag == com.localTag) > 1) {
@@ -487,11 +487,11 @@ namespace UnityEngine.UI.Windows.WindowTypes {
 
                 }
 
-                if (layoutItem.components.Count(x => x.tag == com.tag && x.windowLayout == com.windowLayout) > 1) {
+                /*if (layoutItem.components.Count(x => x.tag == com.tag && x.windowLayout == com.windowLayout) > 1) {
 
                     com.tag = 0;
 
-                }
+                }*/
 
                 layoutItem.components[j] = com;
 
@@ -575,6 +575,9 @@ namespace UnityEngine.UI.Windows.WindowTypes {
                     }
 
                     var used = new HashSet<WindowLayout>();
+                    this.ValidateLayout(ref layoutItem, windowLayout, used);
+
+                    used.Clear();
                     this.ValidateLayout(ref layoutItem, windowLayout, used);
 
                 }

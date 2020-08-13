@@ -145,7 +145,16 @@ MonoBehaviour:
       - windowLayout: {fileID: 8536734372024610737, guid: 22c587121f98a4cd4b15e4113741349d,
           type: 3}
         tag: 7
-        localTag: 1
+        localTag: 3
+        component:
+          type: 0
+          objectType: 0
+          guid: 
+          directRef: {fileID: 0}
+      - windowLayout: {fileID: 8536734372024610737, guid: 22c587121f98a4cd4b15e4113741349d,
+          type: 3}
+        tag: 11
+        localTag: 4
         component:
           type: 0
           objectType: 0

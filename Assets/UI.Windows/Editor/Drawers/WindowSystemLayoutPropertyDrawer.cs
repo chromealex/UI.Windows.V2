@@ -220,6 +220,15 @@ namespace UnityEditor.UI.Windows {
                         this.list.drawHeaderCallback = (rect) => {
                 
                             GUI.Label(rect, "Components");
+                            var buttonRect = rect;
+                            var width = 80f;
+                            buttonRect.x = buttonRect.width - width;
+                            buttonRect.width = width;
+                            if (GUI.Button(buttonRect, "Refresh") == true) {
+                                
+                                (componentsProp.serializedObject.targetObject as WindowObject).ValidateEditor();
+                                
+                            }
                 
                         };
                 
