@@ -352,7 +352,12 @@ namespace UnityEditor.UI.Windows {
 		    {
 			    GUILayoutExt.Separator(selectedColor);
 			    //++EditorGUI.indentLevel;
-			    GUILayoutExt.Box(8f, 0f, tabs[selectedIndex].onDraw);
+			    if (selectedIndex >= 0 && selectedIndex < tabs.Length) {
+				
+				    GUILayoutExt.Box(8f, 0f, tabs[selectedIndex].onDraw);
+				    
+			    }
+
 			    //--EditorGUI.indentLevel;
 		    }
 		    GUILayout.EndVertical();

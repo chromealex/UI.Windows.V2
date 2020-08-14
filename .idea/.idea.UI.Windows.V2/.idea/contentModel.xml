@@ -14,6 +14,9 @@
             <e p="BackgroundClosable.cs" t="Include" />
           </e>
           <e p="OpenWindow.cs" t="Include" />
+          <e p="Test" t="Include">
+            <e p="TestScreen.cs" t="Include" />
+          </e>
         </e>
         <e p="UI.Windows" t="Include">
           <e p="Editor" t="Include">
@@ -32,6 +35,7 @@
               <e p="WindowSystemAspectsPropertyDrawer.cs" t="Include" />
               <e p="WindowSystemLayerPropertyDrawer.cs" t="Include" />
               <e p="WindowSystemLayoutPropertyDrawer.cs" t="Include" />
+              <e p="WindowSystemLayoutSelectorPropertyDrawer.cs" t="Include" />
               <e p="WindowSystemResourcesResourcePropertyDrawer.cs" t="Include" />
               <e p="WindowSystemSearchTypePopupDrawer.cs" t="Include" />
               <e p="WindowSystemSidePropertyDrawer.cs" t="Include" />
@@ -40,6 +44,13 @@
             <e p="Modules" t="Include">
               <e p="WindowSystemPoolsEditor.cs" t="Include" />
               <e p="WindowSystemResourcesEditor.cs" t="Include" />
+            </e>
+            <e p="Templates" t="Include">
+              <e p="CreateScreenTemplate.cs" t="Include" />
+              <e p="Resources" t="Include">
+                <e p="01-ScreenTemplate.txt" t="Include" />
+                <e p="61-ScreenAsset.txt" t="Include" />
+              </e>
             </e>
             <e p="UI.Windows.Editor.asmdef" t="Include" />
             <e p="UnityEditor" t="Include">
@@ -111,6 +122,9 @@
               <e p="WindowSystemModules.cs" t="Include" />
               <e p="WindowSystemPools.cs" t="Include" />
               <e p="WindowSystemResources.cs" t="Include" />
+            </e>
+            <e p="Templates" t="Include">
+              <e p="TemplateMarker.cs" t="Include" />
             </e>
             <e p="Types" t="Include">
               <e p="LayoutWindowType.cs" t="Include" />

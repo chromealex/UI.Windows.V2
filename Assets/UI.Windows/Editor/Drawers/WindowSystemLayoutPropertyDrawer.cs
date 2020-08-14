@@ -47,6 +47,23 @@ namespace UnityEditor.UI.Windows {
             innerLayoutStyle.stretchHeight = false;
             
             var items = property.FindPropertyRelative("items");
+            if (items.arraySize == 0) {
+
+                GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                if (GUILayout.Button("Add Layout", GUILayout.Height(30f), GUILayout.Width(120f)) == true) {
+
+                    ++items.arraySize;
+                    this.selectedTab = 0;
+
+                }
+                GUILayout.FlexibleSpace();
+                GUILayout.EndHorizontal();
+                GUILayout.Space(20f);
+                return;
+
+            }
+            
             var arr = new GUITab[items.arraySize + 1];
             this.selectedTab = Mathf.Clamp(this.selectedTab, 0, arr.Length - 2);
             var i = 0;
@@ -64,7 +81,7 @@ namespace UnityEditor.UI.Windows {
                         GUILayout.FlexibleSpace();
                         if (GUILayout.Button("Remove", GUILayout.Width(60f)) == true) {
 
-                            if (EditorUtility.DisplayDialog("Delete Layout", "Are you sure?", "Yes", "No") == true) {
+                            if (EditorUtility.DisplayDialog("Delete Layout Reference", "Are you sure?", "Yes", "No") == true) {
 
                                 items.DeleteArrayElementAtIndex(idx);
                                 return;

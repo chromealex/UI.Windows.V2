@@ -8,6 +8,8 @@ namespace UnityEngine.UI.Windows.WindowTypes {
     using Modules;
     using Utilities;
     
+    public class LayoutSelectorAttribute : PropertyAttribute {}
+    
     [System.Serializable]
     public class LayoutItem {
 
@@ -27,6 +29,7 @@ namespace UnityEngine.UI.Windows.WindowTypes {
 
         [Tooltip("Current target filter for this layout. If no layout filtered - will be used layout with 0 index.")]
         public WindowSystemTargets targets;
+        [LayoutSelector]
         public WindowLayout windowLayout;
         [SearchAssetsByTypePopup(typeof(WindowLayoutPreferences), menuName: "Layout Preferences")]
         public WindowLayoutPreferences layoutPreferences;
@@ -350,7 +353,9 @@ namespace UnityEngine.UI.Windows.WindowTypes {
     
     public abstract class LayoutWindowType : WindowBase, ILayoutInstance {
 
-        public Layouts layouts;
+        public Layouts layouts = new Layouts() {
+            items = new LayoutItem[1]
+        };
 
         private Dictionary<int, int> requestedIndexes = new Dictionary<int, int>();
 
@@ -547,6 +552,8 @@ namespace UnityEngine.UI.Windows.WindowTypes {
             base.ValidateEditor();
 
             var items = this.layouts.items;
+            if (items == null) return;
+            
             for (int i = 0; i < items.Length; ++i) {
 
                 ref var layoutItem = ref items[i];
