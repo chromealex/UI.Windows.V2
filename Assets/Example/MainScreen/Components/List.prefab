@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1536854153975625398}
   - component: {fileID: 7358418668070656793}
   - component: {fileID: 8615590984208685912}
+  - component: {fileID: 619182470873651510}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -55,13 +56,17 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 7358418668070656793}
     graphics: {fileID: 8615590984208685912}
+    rectMask: {fileID: 0}
+  isActiveSelf: 0
   createPool: 0
   animationParameters: {fileID: 0}
   objectState: 0
   renderBehaviourOnHidden: 0
-  allowRegisterInRoot: 1
+  allowRegisterInRoot: 0
   autoRegisterSubObjects: 1
   hiddenByDefault: 1
+  debugStateLog:
+    items: []
   isObjectRoot: 0
   rootObject: {fileID: 3990593149400691769}
   subObjects: []
@@ -71,8 +76,13 @@ MonoBehaviour:
     hiddenByDefaultDescription: Value is hold by ListScrollableComponentModule
     allowRegisterInRoot: 0
     allowRegisterInRootDescription: 
+  - holder: {fileID: 3990593149400691769}
+    hiddenByDefault: 0
+    hiddenByDefaultDescription: 
+    allowRegisterInRoot: 1
+    allowRegisterInRootDescription: Value is hold by ListScrollableComponentModule
   componentModules:
-    windowComponent: {fileID: 0}
+    windowComponent: {fileID: 1536854153975625398}
     modules: []
 --- !u!222 &7358418668070656793
 CanvasRenderer:
@@ -81,7 +91,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2681414433026231839}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &8615590984208685912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +120,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &619182470873651510
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2681414433026231839}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2960413055845501550
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +148,7 @@ GameObject:
   - component: {fileID: 3925710578263826254}
   - component: {fileID: 5705866031551314162}
   - component: {fileID: 6734663783326935486}
+  - component: {fileID: -6229360816393005185}
   m_Layer: 0
   m_Name: List
   m_TagString: Untagged
@@ -172,8 +195,13 @@ MonoBehaviour:
   hasObjectCanvas: 0
   objectCanvas: {fileID: 0}
   canvasRenderers:
+  - canvasRenderer: {fileID: 0}
+    graphics: {fileID: 0}
+    rectMask: {fileID: 6734663783326935486}
   - canvasRenderer: {fileID: 5061134297012730886}
     graphics: {fileID: 7407888441892882598}
+    rectMask: {fileID: 0}
+  isActiveSelf: 0
   createPool: 0
   animationParameters: {fileID: 0}
   objectState: 0
@@ -181,13 +209,11 @@ MonoBehaviour:
   allowRegisterInRoot: 1
   autoRegisterSubObjects: 1
   hiddenByDefault: 0
-  isObjectRoot: 1
+  debugStateLog:
+    items: []
+  isObjectRoot: 0
   rootObject: {fileID: 0}
-  subObjects:
-  - {fileID: 4037385540182651018}
-  - {fileID: 6355195547688941941}
-  - {fileID: 1528869283387241297}
-  - {fileID: 1536854153975625398}
+  subObjects: []
   registry: []
   componentModules:
     windowComponent: {fileID: 3990593149400691769}
@@ -201,6 +227,7 @@ MonoBehaviour:
     directRef: {fileID: 448184971064952406}
   customRoot: {fileID: 3079395562382340731}
   items: []
+  listRectTransformChangedInternal: {fileID: 8110041788819751460}
 --- !u!114 &6190699215913417335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +361,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &-6229360816393005185
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2960413055845501550}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3077429108955573604
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +382,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3079395562382340731}
+  - component: {fileID: 8110041788819751460}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -370,6 +410,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0.0000055972937, y: 0.000026935497}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8110041788819751460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3077429108955573604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e455c46710b4d20a5de2bb1e896590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listBaseComponent: {fileID: 3990593149400691769}
 --- !u!1 &3917847798277155992
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +435,7 @@ GameObject:
   - component: {fileID: 1528869283387241297}
   - component: {fileID: 3033795361804525550}
   - component: {fileID: 7286155029888745324}
+  - component: {fileID: 6252498114833244829}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -425,19 +479,33 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 3033795361804525550}
     graphics: {fileID: 7286155029888745324}
+    rectMask: {fileID: 0}
+  isActiveSelf: 0
   createPool: 0
   animationParameters: {fileID: 0}
   objectState: 0
   renderBehaviourOnHidden: 0
-  allowRegisterInRoot: 1
+  allowRegisterInRoot: 0
   autoRegisterSubObjects: 1
   hiddenByDefault: 1
+  debugStateLog:
+    items: []
   isObjectRoot: 0
   rootObject: {fileID: 3990593149400691769}
   subObjects: []
-  registry: []
+  registry:
+  - holder: {fileID: 3990593149400691769}
+    hiddenByDefault: 1
+    hiddenByDefaultDescription: Value is hold by ListScrollableComponentModule
+    allowRegisterInRoot: 0
+    allowRegisterInRootDescription: 
+  - holder: {fileID: 3990593149400691769}
+    hiddenByDefault: 0
+    hiddenByDefaultDescription: 
+    allowRegisterInRoot: 1
+    allowRegisterInRootDescription: Value is hold by ListScrollableComponentModule
   componentModules:
-    windowComponent: {fileID: 0}
+    windowComponent: {fileID: 1528869283387241297}
     modules: []
 --- !u!222 &3033795361804525550
 CanvasRenderer:
@@ -446,7 +514,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3917847798277155992}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &7286155029888745324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +543,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &6252498114833244829
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3917847798277155992}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &2155719842469378052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,6 +587,7 @@ GameObject:
   - component: {fileID: 4037385540182651018}
   - component: {fileID: 5933171069132528552}
   - component: {fileID: 7683144423893141531}
+  - component: {fileID: -3916596711301316057}
   m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
@@ -550,13 +631,17 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 5933171069132528552}
     graphics: {fileID: 7683144423893141531}
+    rectMask: {fileID: 0}
+  isActiveSelf: 0
   createPool: 0
   animationParameters: {fileID: 0}
   objectState: 0
   renderBehaviourOnHidden: 0
-  allowRegisterInRoot: 1
+  allowRegisterInRoot: 0
   autoRegisterSubObjects: 1
   hiddenByDefault: 1
+  debugStateLog:
+    items: []
   isObjectRoot: 0
   rootObject: {fileID: 3990593149400691769}
   subObjects: []
@@ -566,8 +651,13 @@ MonoBehaviour:
     hiddenByDefaultDescription: Value is hold by ListScrollableComponentModule
     allowRegisterInRoot: 0
     allowRegisterInRootDescription: 
+  - holder: {fileID: 3990593149400691769}
+    hiddenByDefault: 0
+    hiddenByDefaultDescription: 
+    allowRegisterInRoot: 1
+    allowRegisterInRootDescription: Value is hold by ListScrollableComponentModule
   componentModules:
-    windowComponent: {fileID: 0}
+    windowComponent: {fileID: 4037385540182651018}
     modules: []
 --- !u!222 &5933171069132528552
 CanvasRenderer:
@@ -576,7 +666,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5597334254262270434}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &7683144423893141531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,6 +695,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &-3916596711301316057
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597334254262270434}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7260920060382013176
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +719,7 @@ GameObject:
   - component: {fileID: 6355195547688941941}
   - component: {fileID: 3362569496973586539}
   - component: {fileID: 491550328138938581}
+  - component: {fileID: 8217770484348508976}
   m_Layer: 0
   m_Name: Bottom
   m_TagString: Untagged
@@ -660,13 +763,17 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 3362569496973586539}
     graphics: {fileID: 491550328138938581}
+    rectMask: {fileID: 0}
+  isActiveSelf: 0
   createPool: 0
   animationParameters: {fileID: 0}
   objectState: 0
   renderBehaviourOnHidden: 0
-  allowRegisterInRoot: 1
+  allowRegisterInRoot: 0
   autoRegisterSubObjects: 1
   hiddenByDefault: 1
+  debugStateLog:
+    items: []
   isObjectRoot: 0
   rootObject: {fileID: 3990593149400691769}
   subObjects: []
@@ -676,8 +783,13 @@ MonoBehaviour:
     hiddenByDefaultDescription: Value is hold by ListScrollableComponentModule
     allowRegisterInRoot: 0
     allowRegisterInRootDescription: 
+  - holder: {fileID: 3990593149400691769}
+    hiddenByDefault: 0
+    hiddenByDefaultDescription: 
+    allowRegisterInRoot: 1
+    allowRegisterInRootDescription: Value is hold by ListScrollableComponentModule
   componentModules:
-    windowComponent: {fileID: 0}
+    windowComponent: {fileID: 6355195547688941941}
     modules: []
 --- !u!222 &3362569496973586539
 CanvasRenderer:
@@ -686,7 +798,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7260920060382013176}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &491550328138938581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,6 +827,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &8217770484348508976
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7260920060382013176}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &5785516613568205329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -725,7 +849,7 @@ PrefabInstance:
     - target: {fileID: 6229056001914721351, guid: 1518a5f8a22154fc68d619de45b92924,
         type: 3}
       propertyPath: registry.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6229056001914721351, guid: 1518a5f8a22154fc68d619de45b92924,
         type: 3}

@@ -32,6 +32,15 @@ namespace UnityEngine.UI.Windows {
         public Layers layers;
 
         [System.Serializable]
+        public struct Components {
+
+            public RenderBehaviour renderBehaviourOnHidden;
+
+        }
+
+        public Components components;
+
+        [System.Serializable]
         public struct Canvas {
 
             public RenderMode renderMode;

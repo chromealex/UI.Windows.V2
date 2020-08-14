@@ -145,7 +145,7 @@ namespace UnityEngine.UI.Windows.WindowTypes {
 
         }
 
-        private IEnumerator InitLayoutInstance(LayoutWindowType windowInstance, WindowObject root, WindowLayout windowLayout, HashSet<WindowLayout> used, System.Action onComplete) {
+        private IEnumerator InitLayoutInstance(LayoutWindowType windowInstance, WindowObject root, WindowLayout windowLayout, HashSet<WindowLayout> used, System.Action onComplete, bool isInner = false) {
 
             if (((ILayoutInstance)root).windowLayoutInstance != null) {
                 
@@ -156,20 +156,21 @@ namespace UnityEngine.UI.Windows.WindowTypes {
             
             if (windowLayout.createPool == true) WindowSystem.GetPools().CreatePool(windowLayout);
             var windowLayoutInstance = WindowSystem.GetPools().Spawn(windowLayout, root.transform);
+            
+            if (isInner == true) {
+
+                windowLayoutInstance.canvasScaler.enabled = false;
+
+            }
+
             windowLayoutInstance.Setup(windowInstance);
             windowLayoutInstance.SetCanvasOrder(0);
             root.RegisterSubObject(windowLayoutInstance);
             ((ILayoutInstance)root).windowLayoutInstance = windowLayoutInstance;
             this.ApplyLayoutPreferences(this.layoutPreferences);
 
-            {
-                var rect = windowLayoutInstance.transform as RectTransform;
-                rect.localScale = Vector3.one;
-                rect.sizeDelta = Vector2.zero;
-                rect.anchorMin = Vector2.zero;
-                rect.anchorMax = Vector2.one;
-            }
-
+            windowLayoutInstance.SetTransformFullRect();
+            
             used.Add(this.windowLayout);
             var arr = this.components;
             for (int i = 0; i < arr.Length; ++i) {
@@ -217,7 +218,7 @@ namespace UnityEngine.UI.Windows.WindowTypes {
 
                     if (used.Contains(layoutElement.innerLayout) == false) {
 
-                        yield return this.InitLayoutInstance(windowInstance, layoutElement, layoutElement.innerLayout, used, null);
+                        yield return this.InitLayoutInstance(windowInstance, layoutElement, layoutElement.innerLayout, used, null, isInner: true);
 
                     } else {
 

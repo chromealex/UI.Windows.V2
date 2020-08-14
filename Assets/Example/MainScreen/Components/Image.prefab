@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4133597142685212873}
   - component: {fileID: 8236565129602071138}
   - component: {fileID: 7896553672306774180}
+  - component: {fileID: -795094286133959749}
   m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
@@ -55,6 +56,7 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 8236565129602071138}
     graphics: {fileID: 7896553672306774180}
+    rectMask: {fileID: 0}
   createPool: 0
   animationParameters: {fileID: 0}
   objectState: 0
@@ -66,6 +68,9 @@ MonoBehaviour:
   rootObject: {fileID: 8603233288007487092}
   subObjects: []
   registry: []
+  componentModules:
+    windowComponent: {fileID: 0}
+    modules: []
   graphics: {fileID: 7896553672306774180}
 --- !u!222 &8236565129602071138
 CanvasRenderer:
@@ -107,6 +112,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: asd
+--- !u!225 &-795094286133959749
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030207156511978972}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2623220293137688445
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,6 +136,7 @@ GameObject:
   - component: {fileID: 3068500037674332934}
   - component: {fileID: 4877047360246742331}
   - component: {fileID: 7156483459013315228}
+  - component: {fileID: 376672196772488017}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -162,6 +180,7 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 4877047360246742331}
     graphics: {fileID: 7156483459013315228}
+    rectMask: {fileID: 0}
   createPool: 0
   animationParameters: {fileID: 0}
   objectState: 0
@@ -173,6 +192,9 @@ MonoBehaviour:
   rootObject: {fileID: 8603233288007487092}
   subObjects: []
   registry: []
+  componentModules:
+    windowComponent: {fileID: 0}
+    modules: []
   graphics: {fileID: 7156483459013315228}
   autoUnloadResourcesOnEvent: 2
 --- !u!222 &4877047360246742331
@@ -211,6 +233,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &376672196772488017
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2623220293137688445}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6198428451626109230
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +305,7 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 2931684746070971324}
     graphics: {fileID: 3155123119164066490}
+    rectMask: {fileID: 0}
   createPool: 1
   animationParameters: {fileID: 4407587500854158803}
   objectState: 0
@@ -285,6 +320,9 @@ MonoBehaviour:
   - {fileID: 4133597142685212873}
   - {fileID: 5223059975418708318}
   registry: []
+  componentModules:
+    windowComponent: {fileID: 8603233288007487092}
+    modules: []
   components:
   - {fileID: 3068500037674332934}
   - {fileID: 4133597142685212873}
@@ -369,6 +407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2805118053355732817}
   - component: {fileID: 5223059975418708318}
+  - component: {fileID: 4122954011916866084}
   m_Layer: 0
   m_Name: Linker
   m_TagString: Untagged
@@ -421,6 +460,9 @@ MonoBehaviour:
   rootObject: {fileID: 8603233288007487092}
   subObjects: []
   registry: []
+  componentModules:
+    windowComponent: {fileID: 0}
+    modules: []
   prefab:
     type: 1
     objectType: 2
@@ -428,3 +470,15 @@ MonoBehaviour:
     directRef: {fileID: 8603233288007487092, guid: 5f28f17a08cbe47d6a35cf24c8ebf3c9,
       type: 3}
   autoLoad: 1
+--- !u!225 &4122954011916866084
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059341444573993524}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

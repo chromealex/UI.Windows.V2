@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5827288406460689854}
   - component: {fileID: 7756660358217610653}
   - component: {fileID: 4492464425850030795}
+  - component: {fileID: 3325947319781326525}
   m_Layer: 0
   m_Name: BackgroundClosable
   m_TagString: Untagged
@@ -56,6 +57,7 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 5099510530100816276}
     graphics: {fileID: 3695391576005659334}
+    rectMask: {fileID: 0}
   createPool: 1
   animationParameters: {fileID: 0}
   objectState: 0
@@ -66,6 +68,7 @@ MonoBehaviour:
   isObjectRoot: 1
   rootObject: {fileID: 0}
   subObjects: []
+  registry: []
   canvas: {fileID: 7756660358217610653}
   canvasScaler: {fileID: 4492464425850030795}
   layoutElements: []
@@ -113,6 +116,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!225 &3325947319781326525
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790149417814281077}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3159339313928787302
 GameObject:
   m_ObjectHideFlags: 0

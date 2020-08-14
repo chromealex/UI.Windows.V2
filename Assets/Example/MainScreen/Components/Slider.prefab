@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 254189761798777217}
   - component: {fileID: 4856025114203564625}
   - component: {fileID: 5460415106677022915}
+  - component: {fileID: 5791769783351680373}
   m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
@@ -124,9 +125,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4994a35953c254bf6acc3326d861fb96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rectTransform: {fileID: 254189761798777217}
   hasObjectCanvas: 0
   objectCanvas: {fileID: 0}
-  canvasRenderers: []
+  canvasRenderers:
+  - canvasRenderer: {fileID: 5464552009709378964}
+    graphics: {fileID: 3062409062127975759}
+    rectMask: {fileID: 0}
+  - canvasRenderer: {fileID: 4673715964939842573}
+    graphics: {fileID: 8826923170859041975}
+    rectMask: {fileID: 0}
+  isActiveSelf: 0
   createPool: 0
   animationParameters: {fileID: 0}
   objectState: 0
@@ -134,12 +143,14 @@ MonoBehaviour:
   allowRegisterInRoot: 1
   autoRegisterSubObjects: 1
   hiddenByDefault: 0
-  isObjectRoot: 0
+  debugStateLog:
+    items: []
+  isObjectRoot: 1
   rootObject: {fileID: 0}
   subObjects: []
   registry: []
   componentModules:
-    windowComponent: {fileID: 0}
+    windowComponent: {fileID: 4856025114203564625}
     modules: []
   components: []
   slider: {fileID: 5460415106677022915}
@@ -193,6 +204,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &5791769783351680373
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7471379422639617711}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8451628403977942785
 GameObject:
   m_ObjectHideFlags: 0

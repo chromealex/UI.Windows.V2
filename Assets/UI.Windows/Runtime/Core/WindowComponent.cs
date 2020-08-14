@@ -12,7 +12,7 @@ namespace UnityEngine.UI.Windows {
 
             public WindowComponent windowComponent;
             
-            [UnityEngine.UI.Windows.Utilities.SearchComponentsByTypePopup(typeof(WindowComponentModule), "Window Component Module")]
+            [UnityEngine.UI.Windows.Utilities.SearchComponentsByTypePopup(typeof(WindowComponentModule), "Window Component Module", allowClassOverrides: true)]
             public WindowComponentModule[] modules;
 
             public void ValidateEditor() {
@@ -32,6 +32,18 @@ namespace UnityEngine.UI.Windows {
                 
             }
 
+            public void OnLayoutChanged() {
+                
+                if (this.modules == null) return;
+
+                for (int i = 0; i < this.modules.Length; ++i) {
+                    
+                    if (this.modules[i] != null) this.modules[i].OnLayoutChanged();
+                    
+                }
+
+            }
+            
             public void OnInit() {
 
                 if (this.modules == null) return;
@@ -108,12 +120,6 @@ namespace UnityEngine.UI.Windows {
         
         public ComponentModules componentModules;
 
-        public RectTransform rectTransform {
-            get {
-                return this.transform as RectTransform;
-            }
-        }
-        
         public override void ValidateEditor() {
             
             base.ValidateEditor();
@@ -205,10 +211,20 @@ namespace UnityEngine.UI.Windows {
         }
         #endif
 
+        public WindowBase GetWindow() {
+
+            return this.windowComponent.GetWindow();
+
+        }
+        
         public virtual void ValidateEditor() {
             
         }
 
+        public virtual void OnLayoutChanged() {
+            
+        }
+        
         public virtual void OnInit() {
             
         }

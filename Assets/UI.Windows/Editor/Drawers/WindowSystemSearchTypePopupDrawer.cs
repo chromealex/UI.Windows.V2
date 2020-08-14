@@ -68,7 +68,7 @@ namespace UnityEditor.UI.Windows {
 
             var attr = (SearchComponentsByTypePopupAttribute)this.attribute;
             var searchType = attr.baseType;
-            if (property.serializedObject.targetObject is ISearchComponentByTypeEditor searchComponentByTypeEditor) {
+            if (attr.allowClassOverrides == true && property.serializedObject.targetObject is ISearchComponentByTypeEditor searchComponentByTypeEditor) {
 
                 searchType = searchComponentByTypeEditor.GetSearchType();
 
@@ -76,7 +76,7 @@ namespace UnityEditor.UI.Windows {
 
             IList searchArray = null;
             var singleOnly = false;
-            if (property.serializedObject.targetObject is ISearchComponentByTypeSingleEditor searchComponentByTypeSingleEditor) {
+            if (attr.allowClassOverrides == true && property.serializedObject.targetObject is ISearchComponentByTypeSingleEditor searchComponentByTypeSingleEditor) {
 
                 searchArray = searchComponentByTypeSingleEditor.GetSearchTypeArray();
                 singleOnly = true;

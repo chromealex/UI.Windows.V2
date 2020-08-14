@@ -24,9 +24,14 @@ namespace UnityEngine.UI.Windows {
 
                 this.fadeBottom.ValidateEditor(updateParentObjects: false);
                 this.fadeBottom.hiddenByDefault = true;
+                this.fadeBottom.allowRegisterInRoot = false;
                 this.fadeBottom.AddEditorParametersRegistry(new WindowObject.EditorParametersRegistry() {
                     holder = this.windowComponent,
                     hiddenByDefault = true, hiddenByDefaultDescription = "Value is hold by ListScrollableComponentModule"
+                });
+                this.fadeBottom.AddEditorParametersRegistry(new WindowObject.EditorParametersRegistry() {
+                    holder = this.windowComponent,
+                    allowRegisterInRoot = true, allowRegisterInRootDescription = "Value is hold by ListScrollableComponentModule"
                 });
 
             }
@@ -35,9 +40,14 @@ namespace UnityEngine.UI.Windows {
                 
                 this.fadeTop.ValidateEditor(updateParentObjects: false);
                 this.fadeTop.hiddenByDefault = true;
+                this.fadeTop.allowRegisterInRoot = false;
                 this.fadeTop.AddEditorParametersRegistry(new WindowObject.EditorParametersRegistry() {
                     holder = this.windowComponent,
                     hiddenByDefault = true, hiddenByDefaultDescription = "Value is hold by ListScrollableComponentModule"
+                });
+                this.fadeTop.AddEditorParametersRegistry(new WindowObject.EditorParametersRegistry() {
+                    holder = this.windowComponent,
+                    allowRegisterInRoot = true, allowRegisterInRootDescription = "Value is hold by ListScrollableComponentModule"
                 });
                 
             }
@@ -46,9 +56,14 @@ namespace UnityEngine.UI.Windows {
                 
                 this.fadeRight.ValidateEditor(updateParentObjects: false);
                 this.fadeRight.hiddenByDefault = true;
+                this.fadeRight.allowRegisterInRoot = false;
                 this.fadeRight.AddEditorParametersRegistry(new WindowObject.EditorParametersRegistry() {
                     holder = this.windowComponent,
                     hiddenByDefault = true, hiddenByDefaultDescription = "Value is hold by ListScrollableComponentModule"
+                });
+                this.fadeRight.AddEditorParametersRegistry(new WindowObject.EditorParametersRegistry() {
+                    holder = this.windowComponent,
+                    allowRegisterInRoot = true, allowRegisterInRootDescription = "Value is hold by ListScrollableComponentModule"
                 });
                 
             }
@@ -57,9 +72,14 @@ namespace UnityEngine.UI.Windows {
                 
                 this.fadeLeft.ValidateEditor(updateParentObjects: false);
                 this.fadeLeft.hiddenByDefault = true;
+                this.fadeLeft.allowRegisterInRoot = false;
                 this.fadeLeft.AddEditorParametersRegistry(new WindowObject.EditorParametersRegistry() {
                     holder = this.windowComponent,
                     hiddenByDefault = true, hiddenByDefaultDescription = "Value is hold by ListScrollableComponentModule"
+                });
+                this.fadeLeft.AddEditorParametersRegistry(new WindowObject.EditorParametersRegistry() {
+                    holder = this.windowComponent,
+                    allowRegisterInRoot = true, allowRegisterInRootDescription = "Value is hold by ListScrollableComponentModule"
                 });
                 
             }
@@ -75,8 +95,33 @@ namespace UnityEngine.UI.Windows {
         public override void OnInit() {
             
             base.OnInit();
-            
-            if (this.scrollRect != null) this.scrollRect.onValueChanged.AddListener(this.OnScrollValueChanged);
+
+            if (this.fadeBottom != null) {
+                this.fadeBottom.Setup(this.GetWindow());
+                this.fadeBottom.DoInit();
+            }
+
+            if (this.fadeLeft != null) {
+                this.fadeLeft.Setup(this.GetWindow());
+                this.fadeLeft.DoInit();
+            }
+
+            if (this.fadeRight != null) {
+                this.fadeRight.Setup(this.GetWindow());
+                this.fadeRight.DoInit();
+            }
+
+            if (this.fadeTop != null) {
+                this.fadeTop.Setup(this.GetWindow());
+                this.fadeTop.DoInit();
+            }
+
+            if (this.scrollRect != null) {
+                
+                this.scrollRect.onValueChanged.AddListener(this.OnScrollValueChanged);
+                this.OnScrollValueChanged(this.scrollRect.normalizedPosition);
+                
+            }
             
         }
 
@@ -84,8 +129,48 @@ namespace UnityEngine.UI.Windows {
             
             if (this.scrollRect != null) this.scrollRect.onValueChanged.RemoveListener(this.OnScrollValueChanged);
 
+            if (this.fadeBottom != null) {
+                this.fadeBottom.DoDeInit();
+            }
+
+            if (this.fadeLeft != null) {
+                this.fadeLeft.DoDeInit();
+            }
+
+            if (this.fadeRight != null) {
+                this.fadeRight.DoDeInit();
+            }
+
+            if (this.fadeTop != null) {
+                this.fadeTop.DoDeInit();
+            }
+
             base.OnDeInit();
             
+        }
+
+        public override void OnHideBegin() {
+            
+            base.OnHideBegin();
+            
+            if (this.scrollRect != null) this.OnScrollValueChanged(this.scrollRect.normalizedPosition);
+
+        }
+
+        public override void OnShowBegin() {
+            
+            base.OnShowBegin();
+            
+            if (this.scrollRect != null) this.OnScrollValueChanged(this.scrollRect.normalizedPosition);
+
+        }
+
+        public override void OnLayoutChanged() {
+            
+            base.OnLayoutChanged();
+            
+            if (this.scrollRect != null) this.OnScrollValueChanged(this.scrollRect.normalizedPosition);
+
         }
 
         public override void OnElementsChanged() {
@@ -96,27 +181,21 @@ namespace UnityEngine.UI.Windows {
 
         }
 
-        /*
-        public void LateUpdate() {
-
-            if (this.windowComponent.IsVisible() == true) {
-
-                if (this.scrollRect != null) this.OnScrollValueChanged(this.scrollRect.normalizedPosition);
-
-            }
-
-        }*/
-
         private void OnScrollValueChanged(Vector2 position) {
 
+            #if UNITY_EDITOR
+            if (Application.isPlaying == false) return;
+            #endif
+            
             var contentRect = this.scrollRect.content.rect;
-            var borderRect = (this.transform as RectTransform).rect;
+            var borderRect = this.windowComponent.rectTransform.rect;
 
             {
                 var contentHeight = contentRect.height;
                 var borderHeight = borderRect.height;
+
                 var sizeY = borderHeight - contentHeight;
-                if (sizeY >= 0f || this.scrollRect.vertical == false) {
+                if (sizeY >= 0f || this.scrollRect.vertical == false || this.windowComponent.IsVisible() == false) {
 
                     if (this.fadeTop != null) this.fadeTop.Hide();
                     if (this.fadeBottom != null) this.fadeBottom.Hide();
@@ -149,7 +228,7 @@ namespace UnityEngine.UI.Windows {
                 var contentWidth = contentRect.width;
                 var borderWidth = borderRect.width;
                 var sizeX = borderWidth - contentWidth;
-                if (sizeX >= 0f || this.scrollRect.horizontal == false) {
+                if (sizeX >= 0f || this.scrollRect.horizontal == false || this.windowComponent.IsVisible() == false) {
 
                     if (this.fadeLeft != null) this.fadeLeft.Hide();
                     if (this.fadeRight != null) this.fadeRight.Hide();

@@ -43,7 +43,10 @@ namespace UnityEngine.UI.Windows.Components {
 
     }
     
-    public class TextComponent : WindowComponent {
+    public class TextComponent : WindowComponent, ISearchComponentByTypeEditor, ISearchComponentByTypeSingleEditor {
+
+        System.Type ISearchComponentByTypeEditor.GetSearchType() { return typeof(TextComponentModule); }
+        IList ISearchComponentByTypeSingleEditor.GetSearchTypeArray() { return this.componentModules.modules;}
 
         public struct TimeFormatFromSeconds : IValueFormat {
 

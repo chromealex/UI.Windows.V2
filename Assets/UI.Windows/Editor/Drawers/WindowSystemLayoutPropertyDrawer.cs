@@ -222,7 +222,7 @@ namespace UnityEditor.UI.Windows {
                             GUI.Label(rect, "Components");
                             var buttonRect = rect;
                             var width = 80f;
-                            buttonRect.x = buttonRect.width - width;
+                            buttonRect.x = rect.width - width;
                             buttonRect.width = width;
                             if (GUI.Button(buttonRect, "Refresh") == true) {
                                 

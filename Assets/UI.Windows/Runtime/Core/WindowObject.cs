@@ -22,11 +22,20 @@ namespace UnityEngine.UI.Windows {
 
     }
 
+    public enum RenderBehaviourSettings {
+
+        UseSettings = 0,
+        TurnOffRenderers = 1,
+        HideGameObject = 2,
+        Nothing = 3,
+
+    }
+
     public enum RenderBehaviour {
 
-        TurnOffRenderers,
-        HideGameObject,
-        Nothing,
+        TurnOffRenderers = 1,
+        HideGameObject = 2,
+        Nothing = 3,
 
     }
 
@@ -35,28 +44,63 @@ namespace UnityEngine.UI.Windows {
         WindowLayout windowLayoutInstance { get; set; }
 
     }
+
+    [System.Serializable]
+    public struct DebugStateLog {
+
+        [System.Serializable]
+        public struct Item {
+
+            public ObjectState state;
+            public string stackTrace;
+
+        }
+        
+        public List<Item> items;
+        
+        public void Add(ObjectState state) {
+            
+            if (this.items == null) this.items = new List<Item>();
+            var trace = StackTraceUtility.ExtractStackTrace();
+            this.items.Add(new Item() {
+                state = state,
+                stackTrace = trace
+            });
+            
+        }
+
+    }
     
     [DisallowMultipleComponent]
+    [RequireComponent(typeof(RectTransform))]
     public abstract class WindowObject : MonoBehaviour {
 
         [System.Serializable]
         public struct RenderItem {
 
             public CanvasRenderer canvasRenderer;
-            public UnityEngine.UI.Graphic graphics;
+            public Graphic graphics;
+            public RectMask2D rectMask;
 
             public void SetCull(bool state) {
 
-                if (this.canvasRenderer == null) Debug.LogWarning("CR is null on " + this.graphics, this.graphics);
-                
-                this.canvasRenderer.cull = state;
-                if (this.graphics != null) UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForGraphicRebuild(this.graphics);
+                if (this.canvasRenderer != null) {
+                    
+                    this.canvasRenderer.SetAlpha(state == true ? 0f : 1f);
+                    this.canvasRenderer.cull = state;
+                    if (this.graphics != null) UnityEngine.UI.CanvasUpdateRegistry.RegisterCanvasElementForGraphicRebuild(this.graphics);
+
+                } else if (this.rectMask != null) {
+
+                    this.rectMask.enabled = !state;
+
+                }
 
             }
 
             public void SetCullTransparentMesh(bool state) {
 
-                this.canvasRenderer.cullTransparentMesh = state;
+                if (this.canvasRenderer != null) this.canvasRenderer.cullTransparentMesh = state;
 
             }
 
@@ -65,9 +109,13 @@ namespace UnityEngine.UI.Windows {
         internal int windowId;
         internal WindowBase window;
 
+        public RectTransform rectTransform;
+
         public bool hasObjectCanvas;
         public Canvas objectCanvas;
         public RenderItem[] canvasRenderers;
+        public bool isActiveSelf;
+        //public CanvasGroup canvasGroupRender;
 
         [Tooltip("Should this object return in pool when window is hidden? Object will returns into pool only if parent object is not mark as `createPool`.")]
         public bool createPool;
@@ -77,7 +125,7 @@ namespace UnityEngine.UI.Windows {
         
         public ObjectState objectState;
         [Tooltip("Render behaviour when hidden state set or if hiddenByDefault is true.")]
-        public RenderBehaviour renderBehaviourOnHidden = RenderBehaviour.TurnOffRenderers;
+        public RenderBehaviourSettings renderBehaviourOnHidden = RenderBehaviourSettings.UseSettings;
         
         [Tooltip("Allow root to register this object in subObjects array.")]
         public bool allowRegisterInRoot = true;
@@ -86,10 +134,19 @@ namespace UnityEngine.UI.Windows {
         [Tooltip("Make this object is hidden by default.\nWorks only on window showing state, check if this object must be hidden by default it breaks branch graph on this node. After it works current object state will be Initialized.")]
         public bool hiddenByDefault = false;
 
+        public DebugStateLog debugStateLog;
+        
         public bool isObjectRoot;
         public WindowObject rootObject;
         public List<WindowObject> subObjects = new List<WindowObject>();
 
+        public void SetState(ObjectState state) {
+
+            this.debugStateLog.Add(state);
+            this.objectState = state;
+
+        }
+        
         [System.Serializable]
         public struct EditorParametersRegistry {
 
@@ -157,6 +214,8 @@ namespace UnityEngine.UI.Windows {
         [ContextMenu("Validate")]
         public virtual void ValidateEditor() {
             
+            this.rectTransform = this.GetComponent<RectTransform>();
+
             this.ValidateEditor(updateParentObjects: true);
             
         }
@@ -201,6 +260,24 @@ namespace UnityEngine.UI.Windows {
 
             { // Collect render items
 
+                /*if (this.canvasGroupRender == null) {
+
+                    var canvasGroup = this.gameObject.GetComponent<CanvasGroup>();
+                    if (canvasGroup != null) {
+
+                        this.canvasGroupRender = canvasGroup;
+
+                    } else {
+                    
+                        this.canvasGroupRender = this.gameObject.AddComponent<CanvasGroup>();
+                        this.canvasGroupRender.alpha = 1f;
+                        this.canvasGroupRender.interactable = true;
+                        this.canvasGroupRender.blocksRaycasts = true;
+
+                    }
+                    
+                }*/
+                
                 var canvasRenderers = this.GetComponentsInChildren<CanvasRenderer>(true).Where(x => x.GetComponentsInParent<WindowObject>(true)[0] == this).ToArray();
                 for (int i = 0; i < canvasRenderers.Length; ++i) {
 
@@ -214,16 +291,30 @@ namespace UnityEngine.UI.Windows {
                 }
 
                 canvasRenderers = canvasRenderers.Where(x => x != null).ToArray();
-                this.canvasRenderers = new RenderItem[canvasRenderers.Length];
+                var rectMasks = this.GetComponentsInChildren<RectMask2D>().Where(x => x.GetComponentsInParent<WindowObject>(true)[0] == this).ToArray();
+                this.canvasRenderers = new RenderItem[canvasRenderers.Length + rectMasks.Length];
+                var k = 0;
                 for (int i = 0; i < this.canvasRenderers.Length; ++i) {
 
-                    this.canvasRenderers[i] = new RenderItem() {
-                        canvasRenderer = canvasRenderers[i],
-                        graphics = canvasRenderers[i].GetComponent<UnityEngine.UI.Graphic>()
-                    };
+                    if (i < rectMasks.Length) {
+
+                        this.canvasRenderers[i] = new RenderItem() {
+                            rectMask = rectMasks[i]
+                        };
+
+                    } else {
+
+                        this.canvasRenderers[i] = new RenderItem() {
+                            canvasRenderer = canvasRenderers[k],
+                            graphics = canvasRenderers[k].GetComponent<UnityEngine.UI.Graphic>()
+                        };
+
+                        ++k;
+
+                    }
 
                 }
-
+                
             }
 
             var roots = this.GetComponentsInParent<WindowObject>(true);
@@ -334,28 +425,70 @@ namespace UnityEngine.UI.Windows {
 
         }
 
-        public void SetVisible() {
+        public bool IsActive() {
 
-            switch (this.renderBehaviourOnHidden) {
+            return this.isActiveSelf == true && (this.rootObject == null || this.rootObject.IsActive() == true);
 
-                case RenderBehaviour.TurnOffRenderers:
+        }
+        
+        public void SetVisibleHierarchy() {
 
-                    for (int i = 0; i < this.canvasRenderers.Length; ++i) {
+            this.SetVisible();
+            
+            for (int i = 0; i < this.subObjects.Count; ++i) {
 
-                        this.canvasRenderers[i].SetCull(false);
-
-                    }
-
-                    break;
-
-                case RenderBehaviour.HideGameObject:
-
-                    this.gameObject.SetActive(true);
-
-                    break;
+                this.subObjects[i].SetVisible();
 
             }
 
+        }
+
+        public void SetVisible() {
+
+            this.isActiveSelf = true;
+
+            if (this.IsActive() == true) {
+
+                var renderBehaviourOnHidden = RenderBehaviour.Nothing; 
+                if (this.renderBehaviourOnHidden == RenderBehaviourSettings.UseSettings) {
+
+                    var settings = WindowSystem.GetSettings();
+                    renderBehaviourOnHidden = settings.components.renderBehaviourOnHidden;
+
+                } else {
+                    
+                    renderBehaviourOnHidden = (RenderBehaviour)this.renderBehaviourOnHidden;
+                    
+                }
+                
+                switch (renderBehaviourOnHidden) {
+
+                    case RenderBehaviour.TurnOffRenderers:
+
+                        for (int i = 0; i < this.canvasRenderers.Length; ++i) {
+
+                            this.canvasRenderers[i].SetCull(false);
+
+                        }
+
+                        break;
+
+                    case RenderBehaviour.HideGameObject:
+
+                        this.gameObject.SetActive(true);
+
+                        break;
+
+                }
+
+            }
+
+        }
+
+        public void SetInvisibleHierarchy() {
+
+            this.SetInvisible();
+            
             for (int i = 0; i < this.subObjects.Count; ++i) {
 
                 this.subObjects[i].SetVisible();
@@ -366,7 +499,21 @@ namespace UnityEngine.UI.Windows {
 
         public void SetInvisible() {
 
-            switch (this.renderBehaviourOnHidden) {
+            this.isActiveSelf = false;
+
+            var renderBehaviourOnHidden = RenderBehaviour.Nothing; 
+            if (this.renderBehaviourOnHidden == RenderBehaviourSettings.UseSettings) {
+
+                var settings = WindowSystem.GetSettings();
+                renderBehaviourOnHidden = settings.components.renderBehaviourOnHidden;
+
+            } else {
+                    
+                renderBehaviourOnHidden = (RenderBehaviour)this.renderBehaviourOnHidden;
+                    
+            }
+
+            switch (renderBehaviourOnHidden) {
 
                 case RenderBehaviour.TurnOffRenderers:
 
@@ -383,12 +530,6 @@ namespace UnityEngine.UI.Windows {
                     this.gameObject.SetActive(false);
 
                     break;
-
-            }
-
-            for (int i = 0; i < this.subObjects.Count; ++i) {
-
-                this.subObjects[i].SetInvisible();
 
             }
 
@@ -475,7 +616,7 @@ namespace UnityEngine.UI.Windows {
 
                             }
 
-                            windowObject.objectState = this.objectState;
+                            windowObject.SetState(this.objectState);
 
                             break;
                         case ObjectState.Hidden:
@@ -486,7 +627,7 @@ namespace UnityEngine.UI.Windows {
 
                             }
 
-                            windowObject.objectState = this.objectState;
+                            windowObject.SetState(this.objectState);
 
                             break;
                         
@@ -577,15 +718,21 @@ namespace UnityEngine.UI.Windows {
 
         }
 
-        public void SetResetState() {
+        public void SetResetStateHierarchy() {
 
-            WindowObjectAnimation.SetResetState(this);
+            this.SetResetState();
 
             for (int i = 0; i < this.subObjects.Count; ++i) {
 
                 this.subObjects[i].SetResetState();
 
             }
+
+        }
+
+        public void SetResetState() {
+
+            WindowObjectAnimation.SetResetState(this);
 
         }
 
@@ -619,13 +766,13 @@ namespace UnityEngine.UI.Windows {
 
             if (this.objectState < ObjectState.Initializing) {
 
-                this.objectState = ObjectState.Initializing;
+                this.SetState(ObjectState.Initializing);
 
                 this.OnInitInternal();
                 this.OnInit();
                 WindowSystem.RaiseEvent(this, WindowEvent.OnInitialize);
 
-                this.objectState = ObjectState.Initialized;
+                this.SetState(ObjectState.Initialized);
 
             }
 
@@ -645,7 +792,7 @@ namespace UnityEngine.UI.Windows {
                 return;
                 
             }
-            this.objectState = ObjectState.DeInitializing;
+            this.SetState(ObjectState.DeInitializing);
 
             for (int i = 0; i < this.subObjects.Count; ++i) {
 
@@ -657,7 +804,7 @@ namespace UnityEngine.UI.Windows {
             this.OnDeInit();
             this.OnDeInitInternal();
 
-            this.objectState = ObjectState.DeInitialized;
+            this.SetState(ObjectState.DeInitialized);
 
             WindowSystem.ClearEvents(this);
 
@@ -689,6 +836,7 @@ namespace UnityEngine.UI.Windows {
             if (this.hiddenByDefault == true && this.window.GetState() == ObjectState.Showing) {
 
                 {
+                    this.Hide(TransitionParameters.Default.ReplaceImmediately(true));
                     this.SetInvisible();
                 }
 

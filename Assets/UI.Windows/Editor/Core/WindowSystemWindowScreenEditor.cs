@@ -96,10 +96,10 @@ namespace UnityEditor.UI.Windows {
 
             this.serializedObject.Update();
             
-            GUILayoutExt.DrawComponentHeader("S", () => {
+            GUILayoutExt.DrawComponentHeader(this.serializedObject, "S", () => {
                 
-                GUILayoutExt.DrawComponentHeaderItem("State", this.objectState.enumDisplayNames[this.objectState.enumValueIndex]);
-                GUILayoutExt.DrawComponentHeaderItem("Focus", this.focusState.enumDisplayNames[this.focusState.enumValueIndex]);
+                GUILayoutExt.DrawComponentHeaderItem("State", GUILayoutExt.GetPropertyToString(this.objectState));
+                GUILayoutExt.DrawComponentHeaderItem("Focus", GUILayoutExt.GetPropertyToString(this.focusState));
                 
                 GUILayout.FlexibleSpace();
                 
@@ -117,7 +117,7 @@ namespace UnityEditor.UI.Windows {
                     EditorGUILayout.PropertyField(this.createPool);
 
                 }),
-                new GUITab("Modules (" + this.listModules.count + ")", () => {
+                new GUITab("Modules (" + this.listModules.count.ToString() + ")", () => {
 
                     this.listModules.DoLayoutList();
                     

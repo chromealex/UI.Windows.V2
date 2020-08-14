@@ -47,6 +47,7 @@ MonoBehaviour:
   hasObjectCanvas: 0
   objectCanvas: {fileID: 0}
   canvasRenderers: []
+  isActiveSelf: 0
   createPool: 1
   animationParameters: {fileID: 0}
   objectState: 0
@@ -54,6 +55,8 @@ MonoBehaviour:
   allowRegisterInRoot: 1
   autoRegisterSubObjects: 1
   hiddenByDefault: 0
+  debugStateLog:
+    items: []
   isObjectRoot: 1
   rootObject: {fileID: 0}
   subObjects: []
@@ -94,25 +97,6 @@ MonoBehaviour:
       layoutPreferences: {fileID: 11400000, guid: 08f58961bdd6f4656932331bbefd68ec,
         type: 2}
       components:
-      - windowLayout: {fileID: 8536734372024610737, guid: 22c587121f98a4cd4b15e4113741349d,
-          type: 3}
-        tag: 4
-        localTag: 5
-        component:
-          type: 2
-          objectType: 2
-          guid: d84abb82040d8470eaa9355ef4826fef
-          directRef: {fileID: 0}
-      - windowLayout: {fileID: 8536734372024610737, guid: 22c587121f98a4cd4b15e4113741349d,
-          type: 3}
-        tag: 3
-        localTag: 6
-        component:
-          type: 1
-          objectType: 2
-          guid: 2ab0f284eb3a24b27acd37bd977b3b02
-          directRef: {fileID: 3990593149400691769, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
-            type: 3}
       - windowLayout: {fileID: 8536734372024610737, guid: 98587f7e988964ff19f0e936dc82efa3,
           type: 3}
         tag: 1
@@ -124,14 +108,13 @@ MonoBehaviour:
           directRef: {fileID: 0}
       - windowLayout: {fileID: 8536734372024610737, guid: 22c587121f98a4cd4b15e4113741349d,
           type: 3}
-        tag: 2
-        localTag: 8
+        tag: 4
+        localTag: 5
         component:
-          type: 1
+          type: 2
           objectType: 2
-          guid: ffa06889ccfa24b5e85920d779db2b2c
-          directRef: {fileID: 6229056001914721351, guid: ffa06889ccfa24b5e85920d779db2b2c,
-            type: 3}
+          guid: d84abb82040d8470eaa9355ef4826fef
+          directRef: {fileID: 0}
       - windowLayout: {fileID: 8536734372024610737, guid: 22c587121f98a4cd4b15e4113741349d,
           type: 3}
         tag: 5
@@ -147,19 +130,31 @@ MonoBehaviour:
         tag: 7
         localTag: 3
         component:
-          type: 0
-          objectType: 0
-          guid: 
-          directRef: {fileID: 0}
+          type: 1
+          objectType: 2
+          guid: 49323c95718cd492d8c158044a41668f
+          directRef: {fileID: 6459943528063299544, guid: 49323c95718cd492d8c158044a41668f,
+            type: 3}
       - windowLayout: {fileID: 8536734372024610737, guid: 22c587121f98a4cd4b15e4113741349d,
           type: 3}
-        tag: 11
-        localTag: 4
+        tag: 3
+        localTag: 6
         component:
-          type: 0
-          objectType: 0
-          guid: 
-          directRef: {fileID: 0}
+          type: 1
+          objectType: 2
+          guid: 2ab0f284eb3a24b27acd37bd977b3b02
+          directRef: {fileID: 3990593149400691769, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+            type: 3}
+      - windowLayout: {fileID: 8536734372024610737, guid: 22c587121f98a4cd4b15e4113741349d,
+          type: 3}
+        tag: 2
+        localTag: 8
+        component:
+          type: 1
+          objectType: 2
+          guid: ffa06889ccfa24b5e85920d779db2b2c
+          directRef: {fileID: 6229056001914721351, guid: ffa06889ccfa24b5e85920d779db2b2c,
+            type: 3}
   texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!20 &8049097936638917427
 Camera:

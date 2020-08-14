@@ -73,6 +73,39 @@ namespace UnityEditor.UI.Windows {
 		    return new GUIColorUsing(color);
 		    
 	    }
+
+	    public static string GetPropertyToString(SerializedProperty property) {
+
+		    if (property.hasMultipleDifferentValues == true) {
+
+			    return "?";
+
+		    }
+
+		    string str = string.Empty;
+		    switch (property.propertyType) {
+			    
+			    case SerializedPropertyType.Enum:
+				    str = property.enumDisplayNames[property.enumValueIndex];
+				    break;
+
+			    case SerializedPropertyType.Boolean:
+				    str = property.boolValue == true ? "True" : "False";
+				    break;
+
+			    case SerializedPropertyType.Integer:
+				    str = property.intValue.ToString();
+				    break;
+
+			    case SerializedPropertyType.String:
+				    str = property.stringValue;
+				    break;
+
+		    }
+		    
+		    return str;
+
+	    }
 	    
 	    public static void DrawProperty(SerializedProperty property) {
 		    
@@ -110,28 +143,66 @@ namespace UnityEditor.UI.Windows {
 
 	    }
 
+	    public static void DrawStateButtons(UnityEngine.Object[] targets) {
+		    
+		    GUILayoutExt.Padding(10f, 10f, () => {
+			    
+			    GUILayout.BeginHorizontal();
+			    if (GUILayout.Button("Show") == true) {
+
+				    for (int i = 0; i < targets.Length; ++i) {
+
+					    var wo = targets[i] as UnityEngine.UI.Windows.WindowObject;
+					    if (wo != null) wo.Show();
+
+				    }
+				    
+			    }
+
+			    if (GUILayout.Button("Hide") == true) {
+				    
+				    for (int i = 0; i < targets.Length; ++i) {
+
+					    var wo = targets[i] as UnityEngine.UI.Windows.WindowObject;
+					    if (wo != null) wo.Hide();
+
+				    }
+
+			    }
+			    GUILayout.EndHorizontal();
+
+		    });
+		    
+	    }
+	    
 	    public static void DrawComponentHeaderItem(string caption, string value) {
 	        
 		    GUILayoutExt.Padding(16f, 4f, () => {
 
 			    using (new GUIColorUsing(new Color(1f, 1f, 1f, 0.5f))) {
-				    GUILayout.Label(caption, EditorStyles.largeLabel, GUILayout.Height(18f));
+				    
+				    GUILayout.Label(caption, EditorStyles.miniBoldLabel, GUILayout.Height(16f));
+				    
 			    }
 
 			    GUILayout.Space(-10f);
-			    GUILayout.Label(EditorHelpers.StringToCaption(value), EditorStyles.miniBoldLabel);
+			    using (new GUIColorUsing(new Color(1f, 1f, 1f, 1f))) {
+
+				    GUILayout.Label(EditorHelpers.StringToCaption(value), EditorStyles.largeLabel);
+
+			    }
 
 		    }, GUIStyle.none);
 
 	    }
 
-	    public static void DrawComponentHeader(string caption, System.Action onDraw) {
+	    public static void DrawComponentHeader(SerializedObject serializedObject, string caption, System.Action onDraw) {
 		    
-		    DrawComponentHeader(caption, onDraw, new Color(0f, 0.6f, 1f, 0.4f));
-		    
+		    GUILayoutExt.DrawComponentHeader(serializedObject, caption, onDraw, new Color(0f, 0.6f, 1f, 0.4f));
+
 	    }
 
-	    public static void DrawComponentHeader(string caption, System.Action onDraw, Color color) {
+	    public static void DrawComponentHeader(SerializedObject serializedObject, string caption, System.Action onDraw, Color color) {
 
 		    var colorCaption = new Color(0f, 0f, 0f, 0.1f);
 
@@ -160,6 +231,29 @@ namespace UnityEditor.UI.Windows {
 				    GUILayout.BeginHorizontal();
 				    {
 					    onDraw.Invoke();
+
+					    if (EditorApplication.isPlaying == true) {
+
+						    var isValid = true;
+						    for (int i = 0; i < serializedObject.targetObjects.Length; ++i) {
+
+							    if ((serializedObject.targetObjects[i] is UnityEngine.UI.Windows.WindowObject) == false ||
+							        PrefabUtility.IsPartOfPrefabAsset(serializedObject.targetObjects[i]) == true) {
+
+								    isValid = false;
+								    break;
+
+							    }
+							    
+						    }
+
+						    if (isValid == true) {
+
+							    GUILayoutExt.DrawStateButtons(serializedObject.targetObjects);
+
+						    }
+
+					    }
 				    }
 				    GUILayout.EndHorizontal();
 			    }
@@ -622,18 +716,31 @@ namespace UnityEditor.UI.Windows {
 
         }
 
-        public static void DrawBoxNotFilled(Rect rect, float size, Color color) {
+        public static void DrawBoxNotFilled(Rect rect, float size, Color color, float padding = 0f) {
 	        
 	        var s1 = new Rect(rect);
 	        s1.height = size;
+	        s1.y += padding;
+	        s1.x += padding + 1f;
+	        s1.width -= padding * 2f + 2f;
+	        
 	        var s2 = new Rect(rect);
-	        s2.y += rect.height - size;
+	        s2.y += rect.height - size - padding;
 	        s2.height = size;
+	        s2.x += padding + 1f;
+	        s2.width -= padding * 2f + 2f;
+	        
 	        var s3 = new Rect(rect);
 	        s3.width = size;
+	        s3.x += padding;
+	        s3.y += padding;
+	        s3.height -= padding * 2f;
+	        
 	        var s4 = new Rect(rect);
 	        s4.width = size;
-	        s4.x += rect.width - size;
+	        s4.x += rect.width - size - padding;
+	        s4.y += padding;
+	        s4.height -= padding * 2f;
 
 	        DrawRect(s1, color);
 	        DrawRect(s2, color);

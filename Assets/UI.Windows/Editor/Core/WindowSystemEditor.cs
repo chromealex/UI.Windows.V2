@@ -79,7 +79,7 @@ namespace UnityEditor.UI.Windows {
 
             this.serializedObject.Update();
             
-            GUILayoutExt.DrawComponentHeader("UI", () => {
+            GUILayoutExt.DrawComponentHeader(this.serializedObject, "UI", () => {
                 
                 GUILayout.Label("Window System", GUILayout.Height(36f));
                 

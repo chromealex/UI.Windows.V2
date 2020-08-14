@@ -10,6 +10,7 @@ public class MainScreen : LayoutWindowType {
     private GenericComponent comp1;
     private ButtonComponent comp2;
     private ListComponent list;
+    private DropdownComponent dropdown;
     private ProgressComponent progressComponent;
 
     public Texture texture;
@@ -21,6 +22,7 @@ public class MainScreen : LayoutWindowType {
         this.GetLayoutComponent(out this.comp1, Algorithm.GetFirstTypeAny);
         this.GetLayoutComponent(out this.comp2);
         this.GetLayoutComponent(out this.list);
+        this.GetLayoutComponent(out this.dropdown);
         this.GetLayoutComponent(out this.progressComponent);
 
     }
@@ -46,6 +48,19 @@ public class MainScreen : LayoutWindowType {
         this.list.SetItems<ButtonComponent>(20, (item, index) => {
             
             item.Show();
+            
+        });
+        
+        this.dropdown.SetItems<ButtonComponent>(20, (item, index) => {
+            
+            item.Get<TextComponent>().SetText("ITEM " + index.ToString());
+            item.Show();
+            
+        });
+        this.dropdown.Select(0);
+        this.dropdown.SetCallback((idx) => {
+            
+            Debug.Log("Dropdown index: " + idx);
             
         });
         

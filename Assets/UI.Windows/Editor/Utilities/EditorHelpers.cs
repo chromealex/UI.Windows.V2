@@ -61,7 +61,7 @@ namespace UnityEditor.UI.Windows {
         
         public static string StringToCaption(string str) {
 
-            return System.Text.RegularExpressions.Regex.Replace(str, "[A-Z]", (match) => { return " " + match.Value; }).Trim();
+            return System.Text.RegularExpressions.Regex.Replace(str, "[A-Z]", (match) => { return " " + match.Value.Trim(); }).Trim();
 
         }
 

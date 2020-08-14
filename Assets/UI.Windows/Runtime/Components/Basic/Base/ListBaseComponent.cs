@@ -6,7 +6,7 @@ namespace UnityEngine.UI.Windows.Components {
 
     using Utilities;
     
-    public abstract class ListBaseComponent : WindowComponent, UnityEngine.EventSystems.IBeginDragHandler, UnityEngine.EventSystems.IDragHandler, UnityEngine.EventSystems.IEndDragHandler {
+    public abstract class ListBaseComponent : WindowComponent, ILayoutSelfController, UnityEngine.EventSystems.IBeginDragHandler, UnityEngine.EventSystems.IDragHandler, UnityEngine.EventSystems.IEndDragHandler {
 
         [UnityEngine.UI.Windows.Modules.ResourceTypeAttribute(typeof(WindowComponent))]
         public Resource source;
@@ -14,11 +14,44 @@ namespace UnityEngine.UI.Windows.Components {
 
         public List<WindowComponent> items = new List<WindowComponent>();
         private HashSet<Object> loadedAssets = new HashSet<Object>();
+        private System.Action onElementsChangedCallback;
+        private System.Action onLayoutChangedCallback;
+
+        [SerializeField]
+        internal ListRectTransformChangedInternal listRectTransformChangedInternal;
+
+        private void ValidateEditorRectTransformInternal() {
+            
+            if (this.listRectTransformChangedInternal == null) {
+
+                var tr = this.customRoot;
+                if (tr == null) tr = this.transform;
+                this.listRectTransformChangedInternal = tr.gameObject.AddComponent<ListRectTransformChangedInternal>();
+                this.listRectTransformChangedInternal.listBaseComponent = this;
+                this.listRectTransformChangedInternal.hideFlags = HideFlags.HideInInspector;
+
+            } else {
+
+                var tr = this.customRoot;
+                if (tr == null) tr = this.transform;
+                if (this.listRectTransformChangedInternal.transform != tr) {
+                    
+                    Object.DestroyImmediate(this.listRectTransformChangedInternal);
+                    this.listRectTransformChangedInternal = null;
+                    this.ValidateEditorRectTransformInternal();
+
+                }
+                
+            }
+
+        }
         
         public override void ValidateEditor() {
             
             base.ValidateEditor();
 
+            this.ValidateEditorRectTransformInternal();
+            
             var editorObj = this.source.GetEditorRef<WindowComponent>();
             if (editorObj != null) {
             
@@ -39,6 +72,49 @@ namespace UnityEngine.UI.Windows.Components {
             
         }
 
+        void ILayoutController.SetLayoutHorizontal() {
+
+            this.OnLayoutChanged();
+
+        }
+
+        void ILayoutController.SetLayoutVertical() {
+            
+            this.OnLayoutChanged();
+            
+        }
+
+        internal void ForceLayoutChange() {
+            
+            this.OnLayoutChanged();
+            
+        }
+        
+        public int Count {
+            get {
+                return this.items.Count;
+            }
+        }
+
+        protected virtual void OnLayoutChanged() {
+
+            this.componentModules.OnLayoutChanged();
+            if (this.onLayoutChangedCallback != null) this.onLayoutChangedCallback.Invoke();
+
+        }
+
+        public void SetOnLayoutChangedCallback(System.Action callback) {
+
+            this.onLayoutChangedCallback = callback;
+
+        }
+        
+        public void SetOnElementsCallback(System.Action callback) {
+
+            this.onElementsChangedCallback = callback;
+
+        }
+        
         public override void OnInit() {
             
             base.OnInit();
@@ -50,6 +126,9 @@ namespace UnityEngine.UI.Windows.Components {
         public override void OnDeInit() {
             
             base.OnDeInit();
+
+            this.onElementsChangedCallback = null;
+            this.onLayoutChangedCallback = null;
             
             WindowSystem.onPointerUp -= this.OnPointerUp;
             
@@ -62,7 +141,7 @@ namespace UnityEngine.UI.Windows.Components {
             this.loadedAssets.Clear();
             
         }
-
+        
         private void OnPointerUp() {
             
             var eventData = new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current);
@@ -149,9 +228,23 @@ namespace UnityEngine.UI.Windows.Components {
 
             }
             
+            if (this.onElementsChangedCallback != null) this.onElementsChangedCallback.Invoke();
+            
+        }
+
+        public virtual T GetItem<T>(int index) where T : WindowComponent {
+
+            return this.items[index] as T;
+
         }
         
         public virtual void AddItem(System.Action<WindowComponent> onComplete = null) {
+            
+            this.AddItem(this.source, onComplete);
+            
+        }
+
+        public virtual void AddItem<T>(System.Action<T> onComplete = null) where T : WindowComponent {
             
             this.AddItem(this.source, onComplete);
             

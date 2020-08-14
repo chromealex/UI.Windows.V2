@@ -228,6 +228,14 @@ namespace UnityEngine.UI.Windows {
 
         }
 
+        private Vector2 pointerScreenPosition;
+
+        public static Vector2 GetPointerPosition() {
+
+            return WindowSystem.instance.pointerScreenPosition;
+
+        }
+        
         public void Update() {
 
             #if ENABLE_INPUT_SYSTEM
@@ -235,6 +243,7 @@ namespace UnityEngine.UI.Windows {
                 UnityEngine.InputSystem.Mouse.current.rightButton.wasReleasedThisFrame == true ||
                 UnityEngine.InputSystem.Mouse.current.middleButton.wasReleasedThisFrame == true) {
                 
+                this.pointerScreenPosition = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
                 if (WindowSystem.onPointerUp != null) WindowSystem.onPointerUp.Invoke();
                 
             }
@@ -246,7 +255,8 @@ namespace UnityEngine.UI.Windows {
 
                     var touch = touches[i];
                     if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended || touch.phase == UnityEngine.InputSystem.TouchPhase.Canceled) {
-                        
+
+                        this.pointerScreenPosition = touch.screenPosition;
                         if (WindowSystem.onPointerUp != null) WindowSystem.onPointerUp.Invoke();
 
                     }
@@ -259,6 +269,7 @@ namespace UnityEngine.UI.Windows {
                 UnityEngine.Input.GetMouseButtonUp(1) == true ||
                 UnityEngine.Input.GetMouseButtonUp(2) == true) {
                 
+                this.pointerScreenPosition = Input.mousePosition;
                 if (WindowSystem.onPointerUp != null) WindowSystem.onPointerUp.Invoke();
                 
             }
@@ -270,6 +281,7 @@ namespace UnityEngine.UI.Windows {
                     var touch = UnityEngine.Input.GetTouch(i);
                     if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) {
                         
+                        this.pointerScreenPosition = touch.position;
                         if (WindowSystem.onPointerUp != null) WindowSystem.onPointerUp.Invoke();
 
                     }
@@ -550,7 +562,7 @@ namespace UnityEngine.UI.Windows {
                 return;
                 
             }
-            instance.objectState = ObjectState.Showing;
+            instance.SetState(ObjectState.Showing);
 
             instance.OnShowBeginInternal();
             instance.OnShowBegin();
@@ -560,45 +572,39 @@ namespace UnityEngine.UI.Windows {
 
                 if (instance.gameObject.activeSelf == false) instance.gameObject.SetActive(true);
                 instance.SetVisible();
-
-                // Set reset state for all components
                 instance.SetResetState();
 
+                var animationComplete = false;
+                var childsComplete = false;
+                Coroutines.CallInSequence(() => {
+
+                    childsComplete = true;
+                    
+                    if (animationComplete == true) {
+
+                        parameters.RaiseCallback();
+
+                    }
+
+                }, instance.subObjects, (obj, cb) => {
+                    
+                    obj.Show(parameters.ReplaceCallback(cb));
+                    
+                });
+                
                 var closureParameters = new ShowHideClosureParameters() {
                     instance = instance,
                     parameters = parameters,
                 };
                 WindowObjectAnimation.Show(closureParameters, instance, parameters, (cParams) => {
-
-                    var count = cParams.instance.subObjects.Count;
-                    if (count == 0) {
-
-                        parameters.RaiseCallback();
-
-                    } else {
-
-                        var iter = 0;
-                        var cnt = count;
-                        var paramInner = parameters;
-                        var parInstance = cParams.parameters.ReplaceCallback(() => {
-
-                            ++iter;
-                            if (iter == cnt) {
-
-                                paramInner.RaiseCallback();
-
-                            }
-
-                        });
-
-                        for (int i = 0; i < cnt; ++i) {
-
-                            cParams.instance.subObjects[i].Show(parInstance);
-
-                        }
-
+                    
+                    animationComplete = true;
+                    if (childsComplete == true) {
+                        
+                        cParams.parameters.RaiseCallback();
+                        
                     }
-
+                    
                 });
 
             }
@@ -607,6 +613,13 @@ namespace UnityEngine.UI.Windows {
 
         internal static void SetShown(WindowObject instance, TransitionParameters parameters) {
 
+            if (instance.objectState != ObjectState.Showing) {
+                
+                parameters.RaiseCallback();
+                return;
+                
+            }
+            
             var innerParameters = parameters.ReplaceCallback(null);
             for (int i = 0; i < instance.subObjects.Count; ++i) {
                 
@@ -618,13 +631,20 @@ namespace UnityEngine.UI.Windows {
             instance.OnShowEnd();
             WindowSystem.RaiseEvent(instance, WindowEvent.OnShowEnd);
 
-            instance.objectState = ObjectState.Shown;
+            instance.SetState(ObjectState.Shown);
 
             parameters.RaiseCallback();
 
         }
 
         internal static void SetHidden(WindowObject instance, TransitionParameters parameters) {
+
+            if (instance.objectState != ObjectState.Hiding) {
+                
+                parameters.RaiseCallback();
+                return;
+                
+            }
 
             var innerParameters = parameters.ReplaceCallback(null);
             for (int i = 0; i < instance.subObjects.Count; ++i) {
@@ -637,7 +657,7 @@ namespace UnityEngine.UI.Windows {
             instance.OnHideEnd();
             WindowSystem.RaiseEvent(instance, WindowEvent.OnHideEnd);
 
-            instance.objectState = ObjectState.Hidden;
+            instance.SetState(ObjectState.Hidden);
             instance.SetInvisible();
 
             parameters.RaiseCallback();
@@ -659,47 +679,45 @@ namespace UnityEngine.UI.Windows {
                 return;
                 
             }
-            instance.objectState = ObjectState.Hiding;
+            instance.SetState(ObjectState.Hiding);
 
             instance.OnHideBeginInternal();
             instance.OnHideBegin();
             WindowSystem.RaiseEvent(instance, WindowEvent.OnHideBegin);
 
             {
+
+                var animationComplete = false;
+                var childsComplete = false;
+                Coroutines.CallInSequence(() => {
+
+                    childsComplete = true;
+                    
+                    if (animationComplete == true) {
+
+                        parameters.RaiseCallback();
+
+                    }
+
+                }, instance.subObjects, (obj, cb) => {
+                    
+                    obj.Hide(parameters.ReplaceCallback(cb));
+                    
+                });
+                
                 var closureParameters = new ShowHideClosureParameters() {
                     instance = instance,
                     parameters = parameters,
                 };
                 WindowObjectAnimation.Hide(closureParameters, instance, parameters, (cParams) => {
-
-                    var count = instance.subObjects.Count;
-                    if (count == 0) {
-
-                        parameters.RaiseCallback();
-
-                    } else {
-
-                        var iter = 0;
-                        var cnt = count;
-                        var parInstance = parameters.ReplaceCallback(() => {
-
-                            ++iter;
-                            if (iter == cnt) {
-
-                                parameters.RaiseCallback();
-
-                            }
-
-                        });
-
-                        for (int i = 0; i < cnt; ++i) {
-
-                            instance.subObjects[i].Hide(parInstance);
-
-                        }
-
+                    
+                    animationComplete = true;
+                    if (childsComplete == true) {
+                        
+                        cParams.parameters.RaiseCallback();
+                        
                     }
-
+                    
                 });
 
             }

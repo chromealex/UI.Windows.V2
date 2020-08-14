@@ -225,10 +225,10 @@ namespace UnityEditor.UI.Windows {
 
             this.serializedObject.Update();
             
-            GUILayoutExt.DrawComponentHeader("C", () => {
+            GUILayoutExt.DrawComponentHeader(this.serializedObject, "C", () => {
                 
-                GUILayoutExt.DrawComponentHeaderItem("State", this.objectState.enumDisplayNames[this.objectState.enumValueIndex]);
-                
+                GUILayoutExt.DrawComponentHeaderItem("State", GUILayoutExt.GetPropertyToString(this.objectState));
+
             });
             
             GUILayout.Space(5f);

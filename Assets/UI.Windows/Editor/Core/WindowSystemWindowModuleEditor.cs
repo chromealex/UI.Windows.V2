@@ -68,9 +68,9 @@ namespace UnityEditor.UI.Windows {
 
             this.serializedObject.Update();
             
-            GUILayoutExt.DrawComponentHeader("M", () => {
+            GUILayoutExt.DrawComponentHeader(this.serializedObject, "M", () => {
                 
-                GUILayoutExt.DrawComponentHeaderItem("State", this.objectState.enumDisplayNames[this.objectState.enumValueIndex]);
+                GUILayoutExt.DrawComponentHeaderItem("State", GUILayoutExt.GetPropertyToString(this.objectState));
 
             }, new Color(1f, 0.6f, 1f, 0.4f));
             

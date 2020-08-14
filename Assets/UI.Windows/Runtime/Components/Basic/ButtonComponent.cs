@@ -4,7 +4,35 @@ using UnityEngine;
 
 namespace UnityEngine.UI.Windows.Components {
 
-    public class ButtonComponent : GenericComponent {
+    using Utilities;
+
+    public interface IInteractable {
+
+        void SetCallback(System.Action callback);
+        void AddCallback(System.Action callback);
+        void RemoveCallback(System.Action callback);
+
+        void SetCallback(System.Action<ButtonComponent> callback);
+        void AddCallback(System.Action<ButtonComponent> callback);
+        void RemoveCallback(System.Action<ButtonComponent> callback);
+
+        void RemoveCallbacks();
+
+    }
+    
+    public class ButtonComponent : GenericComponent, IInteractable, ISearchComponentByTypeEditor, ISearchComponentByTypeSingleEditor {
+
+        System.Type ISearchComponentByTypeEditor.GetSearchType() {
+
+           return typeof(ButtonComponentModule);
+
+        }
+
+        IList ISearchComponentByTypeSingleEditor.GetSearchTypeArray() {
+
+           return this.componentModules.modules;
+
+        }
 
         public Button button;
         

@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityEngine.UI.Windows.Components {
+    
+    using Utilities;
 
-    public class ProgressComponent : GenericComponent {
+    public class ProgressComponent : GenericComponent, ISearchComponentByTypeEditor, ISearchComponentByTypeSingleEditor {
+
+        System.Type ISearchComponentByTypeEditor.GetSearchType() { return typeof(ProgressComponentModule); }
+        IList ISearchComponentByTypeSingleEditor.GetSearchTypeArray() { return this.componentModules.modules;}
 
         public Slider slider;
         

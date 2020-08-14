@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 2697257910119390979}
   - component: {fileID: 6522073507619339070}
   - component: {fileID: 7904804432723211314}
+  - component: {fileID: 1150175463692161593}
   m_Layer: 0
   m_Name: Checked
   m_TagString: Untagged
@@ -132,6 +133,8 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 6522073507619339070}
     graphics: {fileID: 7904804432723211314}
+    rectMask: {fileID: 0}
+  canvasGroupRender: {fileID: 1150175463692161593}
   createPool: 0
   animationParameters: {fileID: 0}
   objectState: 0
@@ -142,597 +145,10 @@ MonoBehaviour:
   isObjectRoot: 0
   rootObject: {fileID: 6229056001914721351}
   subObjects: []
-  registry:
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
-  - holder: {fileID: 6229056001914721351}
-    hiddenByDefault: 1
-    hiddenByDefaultDescription: Value is hold by CheckboxButtonComponent
-    allowRegisterInRoot: 0
-    allowRegisterInRootDescription: 
+  registry: []
+  componentModules:
+    windowComponent: {fileID: 0}
+    modules: []
 --- !u!222 &6522073507619339070
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -769,6 +185,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &1150175463692161593
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100967909043952235}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7456966507434081276
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +210,7 @@ GameObject:
   - component: {fileID: 8033896776566691482}
   - component: {fileID: 5743958300154282105}
   - component: {fileID: 4300484737634707708}
+  - component: {fileID: 3231509256389827354}
   m_Layer: 0
   m_Name: Checkbox
   m_TagString: Untagged
@@ -827,8 +256,11 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 8033896776566691482}
     graphics: {fileID: 5743958300154282105}
+    rectMask: {fileID: 0}
   - canvasRenderer: {fileID: 5337568940136707527}
     graphics: {fileID: 3515397013829313903}
+    rectMask: {fileID: 0}
+  canvasGroupRender: {fileID: 3231509256389827354}
   createPool: 0
   animationParameters: {fileID: 0}
   objectState: 0
@@ -841,6 +273,9 @@ MonoBehaviour:
   subObjects:
   - {fileID: 2697257910119390979}
   registry: []
+  componentModules:
+    windowComponent: {fileID: 6229056001914721351}
+    modules: []
   components: []
   button: {fileID: 4300484737634707708}
   checkedContainer: {fileID: 2697257910119390979}
@@ -926,3 +361,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &3231509256389827354
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456966507434081276}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

@@ -16,6 +16,8 @@ MonoBehaviour:
   layers:
     depthStep: 10
     zDepthStep: 1000
+  components:
+    renderBehaviourOnHidden: 2
   canvas:
     renderMode: 1
   camera:

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8603233288007487092}
   - component: {fileID: 2931684746070971324}
   - component: {fileID: 3155123119164066490}
+  - component: {fileID: 201712730177752330}
   m_Layer: 0
   m_Name: ImageTest
   m_TagString: Untagged
@@ -55,6 +56,8 @@ MonoBehaviour:
   canvasRenderers:
   - canvasRenderer: {fileID: 2931684746070971324}
     graphics: {fileID: 3155123119164066490}
+    rectMask: {fileID: 0}
+  canvasGroupRender: {fileID: 201712730177752330}
   createPool: 1
   animationParameters: {fileID: 0}
   objectState: 0
@@ -66,6 +69,9 @@ MonoBehaviour:
   rootObject: {fileID: 0}
   subObjects: []
   registry: []
+  componentModules:
+    windowComponent: {fileID: 8603233288007487092}
+    modules: []
 --- !u!222 &2931684746070971324
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -102,3 +108,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &201712730177752330
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6198428451626109230}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

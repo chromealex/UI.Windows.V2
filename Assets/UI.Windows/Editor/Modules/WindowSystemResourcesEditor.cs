@@ -19,7 +19,7 @@ namespace UnityEditor.UI.Windows {
 
         public override void OnInspectorGUI() {
 
-            GUILayoutExt.DrawComponentHeader("EXT", () => {
+            GUILayoutExt.DrawComponentHeader(this.serializedObject, "EXT", () => {
                 
                 GUILayout.Label("WindowSystem Internal module.\nWorking with resources.", GUILayout.Height(36f));
                 

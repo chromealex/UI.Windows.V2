@@ -67,6 +67,13 @@
                 </e>
                 <e p="ButtonComponent.cs" t="Include" />
                 <e p="CheckboxComponent.cs" t="Include" />
+                <e p="DefaultModules" t="Include">
+                  <e p="ButtonBaseComponentModule.cs" t="Include" />
+                  <e p="DropdownBaseComponentModule.cs" t="Include" />
+                  <e p="ImageBaseComponentModule.cs" t="Include" />
+                  <e p="ProgressBaseComponentModule.cs" t="Include" />
+                  <e p="TextBaseComponentModule.cs" t="Include" />
+                </e>
                 <e p="DropdownComponent.cs" t="Include" />
                 <e p="ImageComponent.cs" t="Include" />
                 <e p="ListComponent.cs" t="Include" />
@@ -75,6 +82,7 @@
                     <e p="ListBaseComponentModule.cs" t="Include" />
                   </e>
                   <e p="ListArrangementComponentModule.cs" t="Include" />
+                  <e p="ListRectTransformChangedInternal.cs" t="Include" />
                   <e p="ListScrollableComponentModule.cs" t="Include" />
                 </e>
                 <e p="ProgressComponent.cs" t="Include" />

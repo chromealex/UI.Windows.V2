@@ -42,13 +42,15 @@ namespace UnityEngine.UI.Windows.Utilities {
         public string menuName;
         public string innerField;
         public string noneOption;
+        public bool allowClassOverrides;
 
-        public SearchComponentsByTypePopupAttribute(System.Type baseType, string menuName = null, string innerField = null, string noneOption = "None") {
+        public SearchComponentsByTypePopupAttribute(System.Type baseType, string menuName = null, string innerField = null, string noneOption = "None", bool allowClassOverrides = false) {
 
             this.baseType = baseType;
             this.menuName = menuName;
             this.innerField = innerField;
             this.noneOption = noneOption;
+            this.allowClassOverrides = allowClassOverrides;
 
         }
 
