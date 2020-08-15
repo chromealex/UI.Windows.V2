@@ -8,33 +8,50 @@ namespace UnityEditor.UI.Windows {
     [CustomPreview(typeof(GameObject))]
     public class WindowSystemGameObjectPreviewEditor : ObjectPreview {
 
-        private Editor editor;
+        private static Editor editor;
+        private static Object obj;
 
         private void ValidateEditor() {
 
-            if (this.editor == null) {
+            var targetGameObject = this.target as GameObject;
+            if (targetGameObject == null) {
                 
-                var targetGameObject = this.target as GameObject;
-                if (targetGameObject == null) return;
-            
-                var hasPreview = targetGameObject.GetComponent<UnityEngine.UI.Windows.IHasPreview>();
-                if (hasPreview != null) {
+                this.Reset();
+                return;
+                
+            }
 
-                    this.editor = Editor.CreateEditor((Object)hasPreview);
+            var hasPreview = targetGameObject.GetComponent<UnityEngine.UI.Windows.IHasPreview>();
+            if (hasPreview == null) {
 
-                }
+                this.Reset();
+                return;
+
+            }
+
+            if (WindowSystemGameObjectPreviewEditor.editor == null || WindowSystemGameObjectPreviewEditor.obj != targetGameObject) {
+                
+                WindowSystemGameObjectPreviewEditor.obj = targetGameObject;
+                WindowSystemGameObjectPreviewEditor.editor = Editor.CreateEditor((Object)hasPreview);
 
             }
             
+        }
+
+        private void Reset() {
+
+            WindowSystemGameObjectPreviewEditor.obj = null;
+            WindowSystemGameObjectPreviewEditor.editor = null;
+
         }
         
         public override GUIContent GetPreviewTitle() {
 
             this.ValidateEditor();
 
-            if (this.editor != null) {
+            if (WindowSystemGameObjectPreviewEditor.editor != null) {
 
-                return this.editor.GetPreviewTitle();
+                return WindowSystemGameObjectPreviewEditor.editor.GetPreviewTitle();
 
             }
             
@@ -46,19 +63,19 @@ namespace UnityEditor.UI.Windows {
             
             this.ValidateEditor();
 
-            return this.editor != null;
+            return WindowSystemGameObjectPreviewEditor.editor != null;
 
         }
 
         public override void OnInteractivePreviewGUI(Rect r, GUIStyle background) {
             
-            if (this.editor != null) this.editor.OnInteractivePreviewGUI(r, background);
+            if (WindowSystemGameObjectPreviewEditor.editor != null) WindowSystemGameObjectPreviewEditor.editor.OnInteractivePreviewGUI(r, background);
             
         }
 
         public override void OnPreviewGUI(Rect r, GUIStyle background) {
             
-            if (this.editor != null) this.editor.OnPreviewGUI(r, background);
+            if (WindowSystemGameObjectPreviewEditor.editor != null) WindowSystemGameObjectPreviewEditor.editor.OnPreviewGUI(r, background);
             
         }
 

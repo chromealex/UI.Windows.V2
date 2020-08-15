@@ -559,7 +559,7 @@ namespace UnityEditor.UI.Windows {
                 
                 Vector2 pivotInner = new Vector2(
                     Mathf.Lerp(inner.xMin + 0.5f, inner.xMax - 0.5f, pivot.x),
-                    Mathf.Lerp(inner.yMin + 0.5f, inner.yMax - 0.5f, pivot.y)
+                    Mathf.Lerp(inner.yMax + 0.5f, inner.yMin - 0.5f, pivot.y)
                 );
 
                 GUI.color = s_Styles.pivotColor * oldColor;

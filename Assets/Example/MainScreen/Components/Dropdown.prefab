@@ -360,7 +360,7 @@ PrefabInstance:
     - target: {fileID: 1528869283387241297, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}
       propertyPath: registry.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1536854153975625398, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}
@@ -470,7 +470,7 @@ PrefabInstance:
     - target: {fileID: 3990593149400691769, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}
       propertyPath: registry.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3990593149400691769, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}

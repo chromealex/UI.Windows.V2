@@ -557,6 +557,9 @@ namespace UnityEngine.UI.Windows.WindowTypes {
             for (int i = 0; i < items.Length; ++i) {
 
                 ref var layoutItem = ref items[i];
+                if (layoutItem == null) {
+                    layoutItem = new LayoutItem();
+                }
                 layoutItem.Validate();
 
                 var windowLayout = layoutItem.windowLayout;

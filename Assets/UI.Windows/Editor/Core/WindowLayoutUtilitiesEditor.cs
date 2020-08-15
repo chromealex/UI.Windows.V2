@@ -19,6 +19,7 @@ namespace UnityEditor.UI.Windows {
         
         private int selectedIndexAspect = 0;
         private Vector2 tabsScrollPosition;
+
         public static void DrawLayout(ref int selectedIndexAspect, ref Vector2 tabsScrollPosition, WindowLayout windowLayout, Rect r) {
 
             var items = new Item[] {
@@ -41,30 +42,47 @@ namespace UnityEditor.UI.Windows {
             this.selectedIndexAspect = GUILayout.SelectionGrid(this.selectedIndexAspect, variants, variants.Length);*/
             var aspect = items[selectedIndexAspect].value;
 
+            var used = new HashSet<WindowLayout>();
+            WindowLayoutUtilities.DrawLayout(aspect, windowLayout, r, used: used);
+            
+        }
+        
+        public static bool DrawLayout(float aspect, WindowLayout windowLayout, Rect r, float offset = 20f, HashSet<WindowLayout> used = null) {
+
+            if (used.Contains(windowLayout) == true) return false;
+            used.Add(windowLayout);
+
             var rSource = r;
             
-            var offset = 20f;
             var rectOffset = r;
-            rectOffset.x += offset;
-            rectOffset.y += offset;
-            rectOffset.height -= offset * 2f;
-            rectOffset.width -= offset * 2f;
-
-            var tWidth = rectOffset.height * aspect;
-            if (tWidth > rectOffset.width) {
+            if (offset > 0f) {
             
-                rectOffset.y += rectOffset.height * 0.5f;
-                rectOffset.height = rectOffset.width / aspect;
-                rectOffset.y -= rectOffset.height * 0.5f;
+                rectOffset.x += offset;
+                rectOffset.y += offset;
+                rectOffset.height -= offset * 2f;
+                rectOffset.width -= offset * 2f;
+
+                var tWidth = rectOffset.height * aspect;
+                if (tWidth > rectOffset.width) {
+            
+                    rectOffset.y += rectOffset.height * 0.5f;
+                    rectOffset.height = rectOffset.width / aspect;
+                    rectOffset.y -= rectOffset.height * 0.5f;
+
+                } else {
+
+                    rectOffset.x += rectOffset.width * 0.5f;
+                    rectOffset.width = rectOffset.height * aspect;
+                    rectOffset.x -= rectOffset.width * 0.5f;
+
+                }
 
             } else {
-
-                rectOffset.x += rectOffset.width * 0.5f;
-                rectOffset.width = rectOffset.height * aspect;
-                rectOffset.x -= rectOffset.width * 0.5f;
+            
+                GUILayoutExt.DrawRect(rectOffset, new Color(0f, 0f, 0f, 0.4f));
 
             }
-
+            
             GUILayoutExt.DrawRect(rectOffset, new Color(0f, 0f, 0f, 0.2f));
             GUILayoutExt.DrawBoxNotFilled(rectOffset, 1f, new Color(0.7f, 0.7f, 0.3f, 0.5f));
 
@@ -123,6 +141,7 @@ namespace UnityEditor.UI.Windows {
                         sizeDelta = new Vector2(screenSize.x / scaleFactor, screenSize.y / scaleFactor);
                         windowLayout.rectTransform.sizeDelta = sizeDelta;
                         windowLayout.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+                        windowLayout.rectTransform.localScale = Vector3.one;
                         resolution = windowLayout.rectTransform.sizeDelta;
 
                     }
@@ -134,6 +153,7 @@ namespace UnityEditor.UI.Windows {
             var labelStyle = new GUIStyle(EditorStyles.label);
             labelStyle.alignment = TextAnchor.LowerLeft;
 
+            var isHighlighted = false;
             var highlightedIndex = -1;
             var highlightedRect = Rect.zero;
             for (int i = 0; i < windowLayout.layoutElements.Length; ++i) {
@@ -142,11 +162,11 @@ namespace UnityEditor.UI.Windows {
                 if (element == null) {
 
                     windowLayout.ValidateEditor();
-                    return;
+                    return false;
 
                 }
                 
-                var rect = WindowLayoutUtilities.GetRect(windowLayout.rectTransform, element.rectTransform, r, resolution);
+                var rect = WindowLayoutUtilities.GetRect(windowLayout.rectTransform, element.rectTransform, r, resolution, offset > 0f);
                 if (rect.Contains(Event.current.mousePosition) == true) {
                     
                     if (highlightedIndex >= 0 && highlightedRect.width * highlightedRect.height < rect.width * rect.height) {
@@ -157,23 +177,32 @@ namespace UnityEditor.UI.Windows {
                     
                     highlightedIndex = i;
                     highlightedRect = rect;
+                    isHighlighted = true;
 
                 }
 
             }
 
+            var hasInnerHighlight = false;
             for (int i = 0; i < windowLayout.layoutElements.Length; ++i) {
 
                 var element = windowLayout.layoutElements[i];
-                var rect = WindowLayoutUtilities.GetRect(windowLayout.rectTransform, element.rectTransform, r, resolution);
+                var rect = WindowLayoutUtilities.GetRect(windowLayout.rectTransform, element.rectTransform, r, resolution, offset > 0f);
 
                 using (new GUILayoutExt.GUIColorUsing(highlightedIndex < 0 || i == highlightedIndex ? Color.white : new Color(1f, 1f, 1f, 0.6f))) {
                     WindowSystemSidePropertyDrawer.DrawLayoutMode(rect, element.rectTransform);
                 }
 
+                if (element.innerLayout != null) {
+
+                    hasInnerHighlight = WindowLayoutUtilities.DrawLayout(aspect, element.innerLayout, rect, offset: 0f, used: used);
+                    //WindowLayoutUtilities.DrawLayoutElements(highlightedIndex, rect, resolution, element.innerLayout, used);
+
+                }
+
             }
 
-            if (highlightedIndex >= 0) {
+            if (highlightedIndex >= 0 && hasInnerHighlight == false) {
                 
                 var element = windowLayout.layoutElements[highlightedIndex];
                 var rect = highlightedRect;
@@ -194,18 +223,20 @@ namespace UnityEditor.UI.Windows {
             }
             
             GUI.EndClip();
-            
+
+            return isHighlighted;
+
         }
 
-        private static Rect GetRect(RectTransform root, RectTransform child, Rect r, Vector2 resolution) {
+        private static Rect GetRect(RectTransform root, RectTransform child, Rect r, Vector2 resolution, bool withOffset) {
             
             var bounds = RectTransformUtility.CalculateRelativeRectTransformBounds(root, child);
             var rect = Rect.MinMaxRect(bounds.min.x, resolution.y - bounds.max.y, bounds.max.x, resolution.y - bounds.min.y);
             rect = WindowLayoutUtilities.GetRectScaled(rect, resolution, new Vector2(r.width, r.height));
             rect.x += r.width * 0.5f;
             rect.y -= r.height * 0.5f;
-            rect.x += r.x;
-            rect.y += r.y - 22f;
+            if (withOffset == true) rect.x += r.x;
+            if (withOffset == true) rect.y += r.y - 22f;
 
             return rect;
 
