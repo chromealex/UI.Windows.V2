@@ -197,6 +197,18 @@ namespace UnityEngine.UI.Windows {
             }
 
         }
+
+        private void OnTransformChildrenChanged() {
+            
+            this.OnValidate();
+            
+        }
+
+        private void OnTransformParentChanged() {
+            
+            this.OnValidate();
+            
+        }
         #endif
 
         public bool IsVisible() {

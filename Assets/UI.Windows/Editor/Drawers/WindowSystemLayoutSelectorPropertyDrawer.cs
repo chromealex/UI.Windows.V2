@@ -33,7 +33,12 @@ namespace UnityEditor.UI.Windows {
 
             var attr = this.attr;
             var go = (property.serializedObject.targetObject as Component).gameObject;
-            var assetPath = System.IO.Path.GetDirectoryName(AssetDatabase.GetAssetPath(go));
+            if (go == null) return;
+
+            var pth = AssetDatabase.GetAssetPath(go);
+            if (string.IsNullOrEmpty(pth) == true) return;
+            
+            var assetPath = System.IO.Path.GetDirectoryName(pth);
             assetPath = assetPath.Replace("/Screens", "/Layouts");
             attr.filterDir = assetPath;
             
@@ -56,7 +61,7 @@ namespace UnityEditor.UI.Windows {
                 for (int i = 0; i < allObjects.Length; ++i) {
 
                     var idx = i;
-                    popup.Item("Clone Template/" + allObjects[i].name, Texture2D.redTexture, searchable: true, action: (item) => {
+                    popup.Item("Clone Template/" + allObjects[i].name, null, searchable: true, action: (item) => {
 
                         var p = AssetDatabase.GetAssetPath(allObjects[idx]);
                         var newPath = AssetDatabase.GenerateUniqueAssetPath(assetPath + "/" + allObjects[idx].name + ".prefab");

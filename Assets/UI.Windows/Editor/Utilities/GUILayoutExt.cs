@@ -316,7 +316,7 @@ namespace UnityEditor.UI.Windows {
 						    GUILayoutExt.Separator(color, 2f);
 						    var bc = GUI.backgroundColor;
 						    GUI.backgroundColor = selectedColor;
-						    GUILayout.Label("  " + tab.caption + "  ", selectedStyle, attrsArr);
+						    GUILayout.Label(" " + tab.caption + " ", selectedStyle, attrsArr);
 						    GUI.backgroundColor = bc;
 					    }
 					    GUILayout.EndVertical();
@@ -326,7 +326,7 @@ namespace UnityEditor.UI.Windows {
 					    GUILayout.BeginVertical();
 					    {
 						    GUILayoutExt.Separator();
-						    if (GUILayout.Button("  " + tab.caption + "  ", normalStyle, attrsArr) == true) {
+						    if (GUILayout.Button(" " + tab.caption + " ", normalStyle, attrsArr) == true) {
 
 							    selectedIndex = i;
 
@@ -347,20 +347,24 @@ namespace UnityEditor.UI.Windows {
 		    
 		    GUILayout.EndHorizontal();
 		    GUILayout.EndScrollView();
-		    
-		    GUILayout.BeginVertical();
-		    {
-			    GUILayoutExt.Separator(selectedColor);
-			    //++EditorGUI.indentLevel;
-			    if (selectedIndex >= 0 && selectedIndex < tabs.Length) {
-				
-				    GUILayoutExt.Box(8f, 0f, tabs[selectedIndex].onDraw);
-				    
-			    }
 
-			    //--EditorGUI.indentLevel;
+		    if (tabs[selectedIndex].onDraw != null) {
+
+			    GUILayout.BeginVertical();
+			    {
+				    GUILayoutExt.Separator(selectedColor);
+				    //++EditorGUI.indentLevel;
+				    if (selectedIndex >= 0 && selectedIndex < tabs.Length) {
+
+					    GUILayoutExt.Box(8f, 0f, tabs[selectedIndex].onDraw);
+
+				    }
+
+				    //--EditorGUI.indentLevel;
+			    }
+			    GUILayout.EndVertical();
+
 		    }
-		    GUILayout.EndVertical();
 		    
 		    return selectedIndex;
 

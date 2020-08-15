@@ -7,7 +7,7 @@ namespace UnityEngine.UI.Windows {
 
     [RequireComponent(typeof(Canvas))]
     [RequireComponent(typeof(UnityEngine.UI.CanvasScaler))]
-    public class WindowLayout : WindowObject {
+    public class WindowLayout : WindowObject, IHasPreview {
 
         public Canvas canvas;
         public UnityEngine.UI.CanvasScaler canvasScaler;

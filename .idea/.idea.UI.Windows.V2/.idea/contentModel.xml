@@ -24,7 +24,9 @@
               <e p="WindowComponentModuleEditor.cs" t="Include" />
             </e>
             <e p="Core" t="Include">
+              <e p="WindowLayoutUtilitiesEditor.cs" t="Include" />
               <e p="WindowSystemEditor.cs" t="Include" />
+              <e p="WindowSystemGameObjectPreviewEditor.cs" t="Include" />
               <e p="WindowSystemWindowComponentEditor.cs" t="Include" />
               <e p="WindowSystemWindowLayoutEditor.cs" t="Include" />
               <e p="WindowSystemWindowLayoutPreferencesEditor.cs" t="Include" />

@@ -41,6 +41,8 @@ namespace UnityEngine.UI.Windows {
 
     }
 
+    public interface IHasPreview {}
+    
     [System.Serializable]
     public struct WindowPreferences {
 

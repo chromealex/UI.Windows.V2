@@ -92,6 +92,37 @@ namespace UnityEditor.UI.Windows {
 
         }
 
+        public override GUIContent GetPreviewTitle() {
+            
+            return new GUIContent("Layout");
+            
+        }
+
+        public override bool HasPreviewGUI() {
+
+            if (this.target is UnityEngine.UI.Windows.WindowTypes.LayoutWindowType) {
+                
+                return true;
+
+            }
+
+            return false;
+            
+        }
+
+        private int selectedIndexAspect = 0;
+        private Vector2 tabsScrollPosition;
+        public override void OnInteractivePreviewGUI(Rect r, GUIStyle background) {
+
+            if (this.target is UnityEngine.UI.Windows.WindowTypes.LayoutWindowType layoutWindowType) {
+
+                var windowLayout = layoutWindowType.layouts.GetActive().windowLayout;
+                WindowLayoutUtilities.DrawLayout(ref this.selectedIndexAspect, ref this.tabsScrollPosition, windowLayout, r);
+
+            }
+            
+        }
+
         public override void OnInspectorGUI() {
 
             this.serializedObject.Update();

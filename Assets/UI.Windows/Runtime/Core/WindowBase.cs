@@ -14,7 +14,7 @@ namespace UnityEngine.UI.Windows {
 
     }
 
-    public abstract class WindowBase : WindowObject {
+    public abstract class WindowBase : WindowObject, IHasPreview {
 
         public WindowPreferences preferences = WindowPreferences.Default;
         public WindowModules modules = new WindowModules();

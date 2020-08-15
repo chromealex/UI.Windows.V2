@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 
@@ -60,6 +61,33 @@ namespace UnityEditor.UI.Windows {
             this.hiddenByDefault = this.serializedObject.FindProperty("hiddenByDefault");
         
             EditorHelpers.SetFirstSibling(this.targets);
+
+            EditorApplication.update += this.Repaint;
+            
+        }
+
+        public void OnDisable() {
+            
+            EditorApplication.update -= this.Repaint;
+            
+        }
+
+        public override GUIContent GetPreviewTitle() {
+            
+            return new GUIContent("Layout");
+            
+        }
+
+        private int selectedIndexAspect = 0;
+        private Vector2 tabsScrollPosition;
+        public override void OnInteractivePreviewGUI(Rect r, GUIStyle background) {
+
+            var windowLayout = this.target as WindowLayout;
+            WindowLayoutUtilities.DrawLayout(ref this.selectedIndexAspect, ref this.tabsScrollPosition, windowLayout, r);
+            
+        }
+
+        public override void OnPreviewGUI(Rect r, GUIStyle background) {
 
         }
 
