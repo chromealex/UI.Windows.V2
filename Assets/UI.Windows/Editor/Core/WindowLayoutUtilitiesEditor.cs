@@ -19,28 +19,39 @@ namespace UnityEditor.UI.Windows {
         
         public static void DrawLayout(ref int selectedIndexAspect, ref Vector2 tabsScrollPosition, WindowLayout windowLayout, Rect r) {
 
-            var items = new Item[] {
-                new Item() { name = "4:3", value = 4f / 3f },
-                new Item() { name = "16:9", value = 16f / 9f },
-                new Item() { name = "16:10", value = 16f / 10f },
-                new Item() { name = "5:4", value = 5f / 4f },
-                new Item() { name = "2:1", value = 2f / 1f },
+            var offset = 20f;
+            var aspect = 4f / 3f;
+            if (Selection.objects.Length == 1) {
+             
+                var items = new Item[] {
+                    new Item() { name = "4:3", value = 4f / 3f },
+                    new Item() { name = "16:9", value = 16f / 9f },
+                    new Item() { name = "16:10", value = 16f / 10f },
+                    new Item() { name = "5:4", value = 5f / 4f },
+                    new Item() { name = "2:1", value = 2f / 1f },
 
-                new Item() { name = "3:4", value = 3f / 4f },
-                new Item() { name = "9:16", value = 9f / 16f },
-                new Item() { name = "10:16", value = 10f / 16f },
-                new Item() { name = "4:5", value = 4f / 5f },
-                new Item() { name = "1:2", value = 1f / 2f },
-            };
+                    new Item() { name = "3:4", value = 3f / 4f },
+                    new Item() { name = "9:16", value = 9f / 16f },
+                    new Item() { name = "10:16", value = 10f / 16f },
+                    new Item() { name = "4:5", value = 4f / 5f },
+                    new Item() { name = "1:2", value = 1f / 2f },
+                };
 
-            var tabs = items.Select(x => new GUITab(x.name, null)).ToArray();
-            selectedIndexAspect = GUILayoutExt.DrawTabs(selectedIndexAspect, ref tabsScrollPosition, tabs);
-            /*var variants = items.Select(x => x.name).ToArray();
-            this.selectedIndexAspect = GUILayout.SelectionGrid(this.selectedIndexAspect, variants, variants.Length);*/
-            var aspect = items[selectedIndexAspect].value;
+                var tabs = items.Select(x => new GUITab(x.name, null)).ToArray();
+                selectedIndexAspect = GUILayoutExt.DrawTabs(selectedIndexAspect, ref tabsScrollPosition, tabs);
+
+                //var variants = items.Select(x => x.name).ToArray();
+                //selectedIndexAspect = GUI.SelectionGrid(r, selectedIndexAspect, variants, variants.Length);
+                aspect = items[selectedIndexAspect].value;
+
+            } else {
+
+                offset = 0f;
+
+            }
 
             var used = new HashSet<WindowLayout>();
-            WindowLayoutUtilities.DrawLayout(aspect, windowLayout, r, used: used);
+            WindowLayoutUtilities.DrawLayout(aspect, windowLayout, r, offset, used: used);
             
         }
         

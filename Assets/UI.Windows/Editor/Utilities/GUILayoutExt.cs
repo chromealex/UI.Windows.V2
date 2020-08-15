@@ -263,7 +263,7 @@ namespace UnityEditor.UI.Windows {
 		    GUILayout.EndVertical();
 		    
 	    }
-	    
+
 	    public static int DrawTabs(int selectedIndex, ref Vector2 scrollPosition, params GUITab[] tabs) {
 
 		    var color = new Color(0f, 0.6f, 1f, 0.4f);

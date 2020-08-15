@@ -11,9 +11,17 @@ namespace UnityEditor.UI.Windows {
         private static Editor editor;
         private static Object obj;
 
-        private void ValidateEditor() {
+        public override void Initialize(Object[] targets) {
+            
+            base.Initialize(targets);
+            
+            this.ValidateEditor(targets);
+            
+        }
 
-            if (this.m_Targets.Length > 1) {
+        private void ValidateEditor(Object[] targets) {
+
+            if (targets.Length > 1) {
                 
                 this.Reset();
                 return;
@@ -40,7 +48,7 @@ namespace UnityEditor.UI.Windows {
                 
                 WindowSystemGameObjectPreviewEditor.obj = targetGameObject;
                 WindowSystemGameObjectPreviewEditor.editor = Editor.CreateEditor((Object)hasPreview);
-
+                
             }
             
         }
@@ -54,8 +62,6 @@ namespace UnityEditor.UI.Windows {
         
         public override GUIContent GetPreviewTitle() {
 
-            this.ValidateEditor();
-
             if (WindowSystemGameObjectPreviewEditor.editor != null) {
 
                 return WindowSystemGameObjectPreviewEditor.editor.GetPreviewTitle();
@@ -68,8 +74,6 @@ namespace UnityEditor.UI.Windows {
 
         public override bool HasPreviewGUI() {
             
-            this.ValidateEditor();
-
             return WindowSystemGameObjectPreviewEditor.editor != null && WindowSystemGameObjectPreviewEditor.editor.HasPreviewGUI();
 
         }
