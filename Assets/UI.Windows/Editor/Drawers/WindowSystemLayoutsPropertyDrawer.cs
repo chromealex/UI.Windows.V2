@@ -34,12 +34,17 @@ namespace UnityEditor.UI.Windows {
         }
 
         private UnityEditorInternal.ReorderableList list;
-        
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
+            
+            return 0f;
+            
+        }
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
 
             var evenStyle = new GUIStyle(GUIStyle.none);
             evenStyle.normal.background = Texture2D.whiteTexture;
-            var oddStyle = GUIStyle.none;
             var tagStyle = new GUIStyle(EditorStyles.label);
             tagStyle.alignment = TextAnchor.MiddleRight;
             var innerLayoutStyle = new GUIStyle(EditorStyles.miniLabel);

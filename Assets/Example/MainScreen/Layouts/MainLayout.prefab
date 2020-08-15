@@ -40,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 400, y: 299.99997}
-  m_SizeDelta: {x: 799.99994, y: 600}
+  m_SizeDelta: {x: 800, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8536734372024610737
 MonoBehaviour:
@@ -64,7 +64,7 @@ MonoBehaviour:
   objectState: 0
   renderBehaviourOnHidden: 0
   allowRegisterInRoot: 1
-  autoRegisterSubObjects: 0
+  autoRegisterSubObjects: 1
   hiddenByDefault: 0
   debugStateLog:
     items: []

@@ -36,8 +36,8 @@
             <e p="Drawers" t="Include">
               <e p="WindowSystemAspectsPropertyDrawer.cs" t="Include" />
               <e p="WindowSystemLayerPropertyDrawer.cs" t="Include" />
-              <e p="WindowSystemLayoutPropertyDrawer.cs" t="Include" />
               <e p="WindowSystemLayoutSelectorPropertyDrawer.cs" t="Include" />
+              <e p="WindowSystemLayoutsPropertyDrawer.cs" t="Include" />
               <e p="WindowSystemResourcesResourcePropertyDrawer.cs" t="Include" />
               <e p="WindowSystemSearchTypePopupDrawer.cs" t="Include" />
               <e p="WindowSystemSidePropertyDrawer.cs" t="Include" />

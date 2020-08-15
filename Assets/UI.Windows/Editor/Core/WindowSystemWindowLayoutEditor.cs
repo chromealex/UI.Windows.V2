@@ -87,6 +87,12 @@ namespace UnityEditor.UI.Windows {
             
         }
 
+        public override bool HasPreviewGUI() {
+            
+            return true;
+            
+        }
+
         public override void OnPreviewGUI(Rect r, GUIStyle background) {
 
         }

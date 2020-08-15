@@ -17,9 +17,6 @@ namespace UnityEditor.UI.Windows {
 
         }
         
-        private int selectedIndexAspect = 0;
-        private Vector2 tabsScrollPosition;
-
         public static void DrawLayout(ref int selectedIndexAspect, ref Vector2 tabsScrollPosition, WindowLayout windowLayout, Rect r) {
 
             var items = new Item[] {

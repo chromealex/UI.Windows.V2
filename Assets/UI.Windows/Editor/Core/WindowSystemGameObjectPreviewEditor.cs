@@ -13,6 +13,13 @@ namespace UnityEditor.UI.Windows {
 
         private void ValidateEditor() {
 
+            if (this.m_Targets.Length > 1) {
+                
+                this.Reset();
+                return;
+
+            }
+            
             var targetGameObject = this.target as GameObject;
             if (targetGameObject == null) {
                 
@@ -63,7 +70,7 @@ namespace UnityEditor.UI.Windows {
             
             this.ValidateEditor();
 
-            return WindowSystemGameObjectPreviewEditor.editor != null;
+            return WindowSystemGameObjectPreviewEditor.editor != null && WindowSystemGameObjectPreviewEditor.editor.HasPreviewGUI();
 
         }
 
