@@ -16,8 +16,11 @@ namespace UnityEngine.UI.Windows {
 
         }
 
+        [RequiredReference]
         public ScrollRect scrollRect;
+        [RequiredReference]
         public RectTransform view;
+        [RequiredReference]
         public RectTransform root;
         public Type type;
         public float moveToTargetSpeed = 10f;

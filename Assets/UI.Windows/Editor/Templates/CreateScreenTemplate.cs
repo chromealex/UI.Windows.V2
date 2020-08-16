@@ -216,9 +216,11 @@ public static class ScriptTemplates {
             ScriptTemplates.CreateEmptyDirectory(dir, "Screens");
             ScriptTemplates.CreateEmptyDirectory(dir, "Components");
             ScriptTemplates.CreateEmptyDirectory(dir, "Layouts");
-            
-            
-            
+
+            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(newAssetPath);
+            AssignIcon(asset, new GUIContent(Resources.Load<Texture>("EditorAssets/Scripts/window_icon")));
+
+
             ScriptTemplates.Create(dir + "/Screens", assetName + "Screen.prefab", "61-ScreenAsset", allowRename: false, customDefines: defs);
 
         }
@@ -270,6 +272,23 @@ public static class ScriptTemplates {
             
         });
 
+    }
+    
+    static void AssignIcon(Object target, GUIContent icon){
+        if (target == null || icon == null)
+            throw new System.ArgumentNullException ();
+ 
+        Texture2D tex = icon.image as Texture2D;
+        if (tex == null) {
+            Debug.LogError ("Invalid Icon format : Not a Texture2D");
+            return;
+        }
+ 
+        System.Type editorgui = typeof(EditorGUIUtility);
+        var flags = System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic;
+        object[] args = new object[] {target, tex};
+        editorgui.InvokeMember ("SetIconForObject", flags, null, null, args);
+ 
     }
     
 }

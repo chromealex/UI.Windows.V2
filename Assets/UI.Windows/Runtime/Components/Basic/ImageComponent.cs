@@ -12,6 +12,7 @@ namespace UnityEngine.UI.Windows.Components {
         System.Type ISearchComponentByTypeEditor.GetSearchType() { return typeof(ImageComponentModule); }
         IList ISearchComponentByTypeSingleEditor.GetSearchTypeArray() { return this.componentModules.modules;}
 
+        [RequiredReference]
         public UnityEngine.UI.Graphic graphics;
         private Object currentLoaded;
 

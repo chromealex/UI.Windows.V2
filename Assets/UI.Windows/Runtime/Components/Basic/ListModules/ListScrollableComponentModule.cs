@@ -4,10 +4,13 @@ using UnityEngine;
 
 namespace UnityEngine.UI.Windows {
     
+    using Utilities;
+    
     [ComponentModuleDisplayName("Scrollable Fades")]
     public class ListScrollableComponentModule : ListComponentModule {
         
         [Space(10f)]
+        [RequiredReference]
         public ScrollRect scrollRect;
 
         [Space(10f)]

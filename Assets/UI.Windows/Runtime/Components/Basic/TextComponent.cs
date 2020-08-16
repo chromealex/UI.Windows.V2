@@ -228,6 +228,7 @@ namespace UnityEngine.UI.Windows.Components {
 
         }
         
+        [RequiredReference]
         public UnityEngine.UI.Graphic graphics;
         private TimeResultStrings timeResultStrings = new TimeResultStrings() {
             millisecondsString = @"",

@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f09afd14f4f944f528c0885d11b8e0f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
   hasObjectCanvas: 0
   objectCanvas: {fileID: 0}
   canvasRenderers: []
@@ -154,6 +155,16 @@ MonoBehaviour:
           objectType: 2
           guid: ffa06889ccfa24b5e85920d779db2b2c
           directRef: {fileID: 6229056001914721351, guid: ffa06889ccfa24b5e85920d779db2b2c,
+            type: 3}
+      - windowLayout: {fileID: 8536734372024610737, guid: 22c587121f98a4cd4b15e4113741349d,
+          type: 3}
+        tag: 9
+        localTag: 1
+        component:
+          type: 1
+          objectType: 2
+          guid: 4fa812c26b61340ed994f1809150f8d8
+          directRef: {fileID: 5413725268409622540, guid: 4fa812c26b61340ed994f1809150f8d8,
             type: 3}
   texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!20 &8049097936638917427

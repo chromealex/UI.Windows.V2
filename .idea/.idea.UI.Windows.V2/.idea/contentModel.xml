@@ -38,6 +38,7 @@
               <e p="WindowSystemLayerPropertyDrawer.cs" t="Include" />
               <e p="WindowSystemLayoutSelectorPropertyDrawer.cs" t="Include" />
               <e p="WindowSystemLayoutsPropertyDrawer.cs" t="Include" />
+              <e p="WindowSystemRequiredReferenceDrawer.cs" t="Include" />
               <e p="WindowSystemResourcesResourcePropertyDrawer.cs" t="Include" />
               <e p="WindowSystemSearchTypePopupDrawer.cs" t="Include" />
               <e p="WindowSystemSidePropertyDrawer.cs" t="Include" />
@@ -71,9 +72,13 @@
               <e p="WindowObjectAnimation.cs" t="Include" />
             </e>
             <e p="Attirbutes" t="Include">
+              <e p="RequiredReferenceAttribute.cs" t="Include" />
               <e p="SearchAssetsByTypePopupAttribute.cs" t="Include" />
             </e>
             <e p="Components" t="Include">
+              <e p="Base" t="Include">
+                <e p="WindowComponent.cs" t="Include" />
+              </e>
               <e p="Basic" t="Include">
                 <e p="Base" t="Include">
                   <e p="ListBaseComponent.cs" t="Include" />
@@ -84,11 +89,13 @@
                   <e p="ButtonBaseComponentModule.cs" t="Include" />
                   <e p="DropdownBaseComponentModule.cs" t="Include" />
                   <e p="ImageBaseComponentModule.cs" t="Include" />
+                  <e p="InputFieldBaseComponentModule.cs" t="Include" />
                   <e p="ProgressBaseComponentModule.cs" t="Include" />
                   <e p="TextBaseComponentModule.cs" t="Include" />
                 </e>
                 <e p="DropdownComponent.cs" t="Include" />
                 <e p="ImageComponent.cs" t="Include" />
+                <e p="InputFieldComponent.cs" t="Include" />
                 <e p="ListComponent.cs" t="Include" />
                 <e p="ListModules" t="Include">
                   <e p="Base" t="Include">
@@ -107,16 +114,21 @@
               </e>
             </e>
             <e p="Core" t="Include">
-              <e p="WindowBase.cs" t="Include" />
-              <e p="WindowComponent.cs" t="Include" />
-              <e p="WindowLayout.cs" t="Include" />
-              <e p="WindowLayoutElement.cs" t="Include" />
-              <e p="WindowLayoutPreferences.cs" t="Include" />
-              <e p="WindowObject.cs" t="Include" />
+              <e p="Base" t="Include">
+                <e p="WindowBase.cs" t="Include" />
+                <e p="WindowObject.cs" t="Include" />
+              </e>
+              <e p="Layouts" t="Include">
+                <e p="WindowLayout.cs" t="Include" />
+                <e p="WindowLayoutElement.cs" t="Include" />
+                <e p="WindowLayoutPreferences.cs" t="Include" />
+              </e>
+              <e p="TargetFilters" t="Include">
+                <e p="WindowSystemTarget.cs" t="Include" />
+                <e p="WindowSystemTargets.cs" t="Include" />
+              </e>
               <e p="WindowSystem.cs" t="Include" />
               <e p="WindowSystemSettings.cs" t="Include" />
-              <e p="WindowSystemTarget.cs" t="Include" />
-              <e p="WindowSystemTargets.cs" t="Include" />
             </e>
             <e p="Modules" t="Include">
               <e p="WindowSystemBreadcrumbs.cs" t="Include" />

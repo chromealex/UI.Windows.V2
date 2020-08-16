@@ -91,6 +91,8 @@ namespace UnityEngine.UI.Windows {
 
 namespace UnityEngine.UI.Windows.Modules {
 
+    using Utilities;
+    
     public interface IResourceConstructor<T> where T : class {
 
         T Construct();
@@ -107,13 +109,15 @@ namespace UnityEngine.UI.Windows.Modules {
 
     }
 
-    public class ResourceTypeAttribute : System.Attribute {
+    public class ResourceTypeAttribute : PropertyAttribute {
 
         public System.Type type;
+        public RequiredType required;
 
-        public ResourceTypeAttribute(System.Type type) {
+        public ResourceTypeAttribute(System.Type type, RequiredType required = RequiredType.None) {
 
             this.type = type;
+            this.required = required;
 
         }
 

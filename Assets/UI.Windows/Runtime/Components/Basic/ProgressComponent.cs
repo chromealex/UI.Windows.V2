@@ -6,11 +6,12 @@ namespace UnityEngine.UI.Windows.Components {
     
     using Utilities;
 
-    public class ProgressComponent : GenericComponent, ISearchComponentByTypeEditor, ISearchComponentByTypeSingleEditor {
+    public class ProgressComponent : GenericComponent, IInteractable, ISearchComponentByTypeEditor, ISearchComponentByTypeSingleEditor {
 
         System.Type ISearchComponentByTypeEditor.GetSearchType() { return typeof(ProgressComponentModule); }
         IList ISearchComponentByTypeSingleEditor.GetSearchTypeArray() { return this.componentModules.modules;}
 
+        [RequiredReference]
         public Slider slider;
         
         private System.Action<float> callback;
@@ -60,6 +61,12 @@ namespace UnityEngine.UI.Windows.Components {
         public void SetInteractable(bool state) {
 
             this.slider.interactable = state;
+
+        }
+
+        public bool IsInteractable() {
+
+            return this.slider.interactable;
 
         }
 

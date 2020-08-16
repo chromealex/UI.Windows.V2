@@ -8,6 +8,13 @@ namespace UnityEngine.UI.Windows.Components {
 
     public interface IInteractable {
 
+        bool IsInteractable();
+        void SetInteractable(bool state);
+
+    }
+
+    public interface IInteractableButton : IInteractable {
+
         void SetCallback(System.Action callback);
         void AddCallback(System.Action callback);
         void RemoveCallback(System.Action callback);
@@ -20,7 +27,7 @@ namespace UnityEngine.UI.Windows.Components {
 
     }
     
-    public class ButtonComponent : GenericComponent, IInteractable, ISearchComponentByTypeEditor, ISearchComponentByTypeSingleEditor {
+    public class ButtonComponent : GenericComponent, IInteractableButton, ISearchComponentByTypeEditor, ISearchComponentByTypeSingleEditor {
 
         System.Type ISearchComponentByTypeEditor.GetSearchType() {
 
@@ -34,6 +41,7 @@ namespace UnityEngine.UI.Windows.Components {
 
         }
 
+        [RequiredReference]
         public Button button;
         
         private System.Action callback;
@@ -62,6 +70,12 @@ namespace UnityEngine.UI.Windows.Components {
 
         }
         
+        public bool IsInteractable() {
+
+            return this.button.interactable;
+
+        }
+
         protected virtual void DoClick() {
 
             if (this.GetWindow().GetState() != ObjectState.Showing &&

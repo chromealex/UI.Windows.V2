@@ -22,7 +22,7 @@ namespace UnityEngine.UI.Windows.Components {
 
     }
 
-    public class DropdownComponent : GenericComponent, ISearchComponentByTypeEditor, ISearchComponentByTypeSingleEditor {
+    public class DropdownComponent : GenericComponent, IInteractable, ISearchComponentByTypeEditor, ISearchComponentByTypeSingleEditor {
 
         private static Vector2[] anchors = new Vector2[] {
             new Vector2(0f, 1f),
@@ -42,10 +42,13 @@ namespace UnityEngine.UI.Windows.Components {
         IList ISearchComponentByTypeSingleEditor.GetSearchTypeArray() { return this.componentModules.modules;}
         
         [SerializeField]
+        [RequiredReference]
         private ButtonComponent label;
         [SerializeField]
+        [RequiredReference]
         private ListComponent list;
         [SerializeField]
+        [RequiredReference]
         private ScrollRect scrollRect;
 
         public Side anchor;
@@ -191,6 +194,12 @@ namespace UnityEngine.UI.Windows.Components {
 
         }
         
+        public bool IsInteractable() {
+
+            return this.label.IsInteractable();
+
+        }
+
         public void SetCallback(System.Action<int> callback) {
 
             this.RemoveCallbacks();
@@ -271,7 +280,7 @@ namespace UnityEngine.UI.Windows.Components {
 
         private void TrySetCallbackToInteractable<T>(T instance, System.Action<T> callback) where T : WindowComponent {
             
-            if (instance is IInteractable button) {
+            if (instance is IInteractableButton button) {
 
                 var idx = this.list.Count;
                 button.SetCallback(() => this.DoSelect(idx));

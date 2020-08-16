@@ -13,6 +13,7 @@ namespace UnityEditor.UI.Windows {
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
 
+            UnityEngine.UI.Windows.Utilities.RequiredType requiredType = UnityEngine.UI.Windows.Utilities.RequiredType.None;
             var type = typeof(Object);
             var field = UnityEditor.UI.Windows.EditorHelpers.GetFieldViaPath(property.serializedObject.targetObject.GetType(), property.propertyPath);
             if (field != null) {
@@ -20,7 +21,9 @@ namespace UnityEditor.UI.Windows {
                 var attrs = field.GetCustomAttributes(typeof(ResourceTypeAttribute), inherit: false);
                 if (attrs.Length > 0) {
 
-                    type = ((ResourceTypeAttribute)attrs[0]).type;
+                    var attr = (ResourceTypeAttribute)attrs[0];
+                    type = attr.type;
+                    requiredType = attr.required;
 
                 }
 
@@ -44,6 +47,7 @@ namespace UnityEditor.UI.Windows {
             var directRef = property.FindPropertyRelative("directRef");
             var obj = Resource.GetEditorRef(guid.stringValue, type, (Resource.ObjectType)objectType.enumValueIndex, directRef.objectReferenceValue);
             var newObj = EditorGUI.ObjectField(objRect, label, obj, type, allowSceneObjects: true);
+            WindowSystemRequiredReferenceDrawer.DrawRequired(objRect, requiredType);
             if (newObj != obj) {
 
                 property.serializedObject.Update();
