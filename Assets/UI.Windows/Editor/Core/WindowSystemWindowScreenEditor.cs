@@ -111,13 +111,21 @@ namespace UnityEditor.UI.Windows {
         }
 
         private int selectedIndexAspect = 0;
+        private int selectedIndexInner = 0;
+        private int selectedType = 0;
         private Vector2 tabsScrollPosition;
         public override void OnInteractivePreviewGUI(Rect r, GUIStyle background) {
 
             if (this.target is UnityEngine.UI.Windows.WindowTypes.LayoutWindowType layoutWindowType) {
 
                 var windowLayout = layoutWindowType.layouts.GetActive().windowLayout;
-                WindowLayoutUtilities.DrawLayout(ref this.selectedIndexAspect, ref this.tabsScrollPosition, windowLayout, r);
+                WindowLayoutUtilities.DrawLayout(this.selectedIndexAspect, this.selectedIndexInner, this.selectedType, (type, idx, inner) => {
+                    
+                    this.selectedType = type;
+                    this.selectedIndexAspect = idx;
+                    this.selectedIndexInner = inner;
+                    
+                }, ref this.tabsScrollPosition, windowLayout, r);
 
             }
             

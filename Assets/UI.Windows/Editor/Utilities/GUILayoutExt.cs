@@ -1078,13 +1078,13 @@ namespace UnityEditor.UI.Windows {
 				folderStack.RemoveAt(folderStack.Count - 1);
 		}
 		
-		public void Item(string title, Texture2D image, Action action) {
+		public void Item(string title, Texture2D image, Action action, int order) {
 			var folder = "";
 			if (folderStack.Count > 0)
 				folder = folderStack[folderStack.Count - 1] ?? "";
 			submenu.Add(string.IsNullOrEmpty(folder)
-				            ? new PopupItem(this.title + separator + title, action) { image = image }
-				            : new PopupItem(this.title + separator + folder + separator + title, action) { image = image });
+				            ? new PopupItem(this.title + separator + title, action) { image = image, order = order }
+				            : new PopupItem(this.title + separator + folder + separator + title, action) { image = image, order = order });
 		}
 
 		public void Item(string title, Texture2D image, Action<PopupItem> action, bool searchable) {
@@ -1665,12 +1665,12 @@ namespace UnityEditor.UI.Windows {
 			window.Item(name);
 		}
 		
-		public void Item(string name, Action action) {
-			window.Item(name, action);
+		public void Item(string name, Action action, int order = 0) {
+			window.Item(name, null, action, order);
 		}
 		
-		public void Item(string name, Texture2D image, Action action) {
-			window.Item(name, image, action);
+		public void Item(string name, Texture2D image, Action action, int order = 0) {
+			window.Item(name, image, action, order);
 		}
 
 		public void Item(string name, Texture2D image, Action<PopupWindowAnim.PopupItem> action, bool searchable = true) {

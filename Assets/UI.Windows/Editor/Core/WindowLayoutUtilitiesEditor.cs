@@ -14,35 +14,205 @@ namespace UnityEditor.UI.Windows {
 
             public string name;
             public float value;
+            public DeviceInfo.ScreenData screenData;
+            public DeviceInfo.OrientationData data;
 
         }
+
+        [System.Serializable]
+        public struct DeviceInfo {
+
+            [System.Serializable]
+            public struct ScreenData {
+                public int width;
+                public int height;
+                public int navigationBarHeight;
+                public float dpi;
+                public OrientationData[] orientations;
+            }
+            
+            [System.Serializable]
+            public struct OrientationData {
+                public ScreenOrientation orientation;
+                public Rect safeArea;
+                public Rect[] cutouts;
+            }
+            
+            public string friendlyName;
+            public int version;
+            public ScreenData[] Screens;
+            public ScreenData[] screens;
+            
+        }
+
+        private static List<DeviceInfo> loadedDevices = new List<DeviceInfo>();
         
-        public static void DrawLayout(ref int selectedIndexAspect, ref Vector2 tabsScrollPosition, WindowLayout windowLayout, Rect r) {
+        public static void DrawLayout(int selectedIndexAspect, int selectedIndexInner, int selectedType, System.Action<int, int, int> onSet, ref Vector2 tabsScrollPosition, WindowLayout windowLayout, Rect r) {
 
             var offset = 20f;
             var aspect = 4f / 3f;
+            DeviceInfo.OrientationData orienData = default;
+            DeviceInfo.ScreenData screenData = default;
             if (Selection.objects.Length == 1) {
-             
-                var items = new Item[] {
-                    new Item() { name = "4:3", value = 4f / 3f },
-                    new Item() { name = "16:9", value = 16f / 9f },
-                    new Item() { name = "16:10", value = 16f / 10f },
-                    new Item() { name = "5:4", value = 5f / 4f },
-                    new Item() { name = "2:1", value = 2f / 1f },
 
-                    new Item() { name = "3:4", value = 3f / 4f },
-                    new Item() { name = "9:16", value = 9f / 16f },
-                    new Item() { name = "10:16", value = 10f / 16f },
-                    new Item() { name = "4:5", value = 4f / 5f },
-                    new Item() { name = "1:2", value = 1f / 2f },
-                };
+                if (WindowLayoutUtilities.loadedDevices.Count == 0) {
 
-                var tabs = items.Select(x => new GUITab(x.name, null)).ToArray();
-                selectedIndexAspect = GUILayoutExt.DrawTabs(selectedIndexAspect, ref tabsScrollPosition, tabs);
+                    var devices = new List<DeviceInfo>();
+                    var deviceDirectoryPath = System.IO.Path.GetFullPath(System.IO.Path.Combine("Packages", "com.unity.device-simulator", ".DeviceDefinitions"));
+                    if (UnityEngine.Windows.Directory.Exists(deviceDirectoryPath) == true) {
 
-                //var variants = items.Select(x => x.name).ToArray();
-                //selectedIndexAspect = GUI.SelectionGrid(r, selectedIndexAspect, variants, variants.Length);
-                aspect = items[selectedIndexAspect].value;
+                        var deviceDirectory = new System.IO.DirectoryInfo(deviceDirectoryPath);
+                        var deviceDefinitions = deviceDirectory.GetFiles("*.device.json");
+                        foreach (var deviceDefinition in deviceDefinitions) {
+
+                            string deviceFileText;
+                            using (System.IO.StreamReader sr = deviceDefinition.OpenText()) {
+
+                                deviceFileText = sr.ReadToEnd();
+
+                            }
+
+                            var deviceInfo = JsonUtility.FromJson<DeviceInfo>(deviceFileText);
+                            devices.Add(deviceInfo);
+
+                        }
+
+                    }
+
+                    WindowLayoutUtilities.loadedDevices = devices;
+
+                }
+
+                GUILayout.BeginHorizontal();
+                
+                var selectedName = "Default Aspects";
+                if (selectedType == 1) {
+
+                    var dInfo = WindowLayoutUtilities.loadedDevices[selectedIndexAspect];
+                    selectedName = dInfo.friendlyName;
+
+                }
+
+                if (WindowLayoutUtilities.loadedDevices.Count > 0) {
+
+                    if (GUILayout.Button(selectedName, EditorStyles.toolbarDropDown) == true) {
+
+                        var popup = new Popup(title: "Devices", size: new Vector2(200f, 250f));
+                        popup.autoClose = true;
+                        popup.autoHeight = false;
+                        popup.Item("Default Aspects", () => { onSet.Invoke(0, 0, 0); }, order: -1);
+
+                        for (var i = 0; i < WindowLayoutUtilities.loadedDevices.Count; ++i) {
+
+                            var idx = i;
+                            var deviceInfo = WindowLayoutUtilities.loadedDevices[i];
+                            var screens = deviceInfo.Screens ?? deviceInfo.screens;
+                            if (screens != null) {
+
+                                popup.Item(deviceInfo.friendlyName, () => { onSet.Invoke(1, idx, 0); }, order: idx);
+
+                            }
+
+                        }
+
+                        popup.Show();
+
+                    }
+
+                }
+
+                if (selectedType == 0) {
+                    
+                    var items = new Item[] {
+                        new Item() { name = "4:3", value = 4f / 3f },
+                        new Item() { name = "16:9", value = 16f / 9f },
+                        new Item() { name = "16:10", value = 16f / 10f },
+                        new Item() { name = "5:4", value = 5f / 4f },
+                        new Item() { name = "2:1", value = 2f / 1f },
+
+                        new Item() { name = "3:4", value = 3f / 4f },
+                        new Item() { name = "9:16", value = 9f / 16f },
+                        new Item() { name = "10:16", value = 10f / 16f },
+                        new Item() { name = "4:5", value = 4f / 5f },
+                        new Item() { name = "1:2", value = 1f / 2f },
+                    };
+
+                    var tabs = items.Select(x => new GUITab(x.name, null)).ToArray();
+                    selectedIndexAspect = GUILayoutExt.DrawTabs(selectedIndexAspect, ref tabsScrollPosition, tabs);
+                    aspect = items[selectedIndexAspect].value;
+                    
+                } else if (selectedType == 1) {
+
+                    var deviceInfo = WindowLayoutUtilities.loadedDevices[selectedIndexAspect];
+                    var screens = deviceInfo.Screens ?? deviceInfo.screens;
+                    var items = new Item[4];
+                    for (int i = 0; i < screens.Length; ++i) {
+
+                        var oris = screens[i].orientations;
+                        for (int j = 0; j < oris.Length; ++j) {
+
+                            if (oris[j].orientation == ScreenOrientation.LandscapeRight) {
+                                
+                                var hData = screens[i];
+                                var w = hData.width;
+                                hData.width = hData.height;
+                                hData.height = w;
+
+                                items[0] = new Item() {
+                                    name = "Landscape Right",
+                                    value = hData.width / (float)hData.height,
+                                    data = oris[j],
+                                    screenData = hData
+                                };
+                                
+                            } else if (oris[j].orientation == ScreenOrientation.Landscape ||
+                                       oris[j].orientation == ScreenOrientation.LandscapeLeft) {
+                                
+                                var hData = screens[i];
+                                var w = hData.width;
+                                hData.width = hData.height;
+                                hData.height = w;
+                                
+                                items[1] = new Item() {
+                                    name = "Landscape Left",
+                                    value = hData.width / (float)hData.height,
+                                    data = oris[j],
+                                    screenData = hData
+                                };
+                                
+                            } else if (oris[j].orientation == ScreenOrientation.Portrait) {
+                                
+                                items[2] = new Item() {
+                                    name = "Portrait Up",
+                                    value = screens[i].width / (float)screens[i].height,
+                                    data = oris[j],
+                                    screenData = screens[i]
+                                };
+                                
+                            } else if (oris[j].orientation == ScreenOrientation.PortraitUpsideDown) {
+                                
+                                items[3] = new Item() {
+                                    name = "Portrait Down",
+                                    value = screens[i].width / (float)screens[i].height,
+                                    data = oris[j],
+                                    screenData = screens[i]
+                                };
+                                
+                            }
+
+                        }
+
+                    }
+                    
+                    var tabs = items.Select(x => new GUITab(x.name, null)).ToArray();
+                    selectedIndexInner = GUILayoutExt.DrawTabs(selectedIndexInner, ref tabsScrollPosition, tabs);
+                    aspect = items[selectedIndexInner].value;
+                    orienData = items[selectedIndexInner].data;
+                    screenData = items[selectedIndexInner].screenData;
+
+                }
+                
+                GUILayout.EndHorizontal();
 
             } else {
 
@@ -51,11 +221,13 @@ namespace UnityEditor.UI.Windows {
             }
 
             var used = new HashSet<WindowLayout>();
-            WindowLayoutUtilities.DrawLayout(aspect, windowLayout, r, offset, used: used);
+            WindowLayoutUtilities.DrawLayout(aspect, windowLayout, r, offset, used, screenData, orienData);
             
+            onSet.Invoke(selectedType, selectedIndexAspect, selectedIndexInner);
+
         }
         
-        public static bool DrawLayout(float aspect, WindowLayout windowLayout, Rect r, float offset = 20f, HashSet<WindowLayout> used = null) {
+        public static bool DrawLayout(float aspect, WindowLayout windowLayout, Rect r, float offset = 20f, HashSet<WindowLayout> used = null, DeviceInfo.ScreenData screenData = default, DeviceInfo.OrientationData orientationData = default) {
 
             if (used.Contains(windowLayout) == true) return false;
             used.Add(windowLayout);
@@ -232,8 +404,58 @@ namespace UnityEditor.UI.Windows {
             
             GUI.EndClip();
 
+            if (offset > 0f) {
+
+                if (orientationData.cutouts != null) {
+
+                    var safeArea = new Rect(orientationData.safeArea);
+                    safeArea = WindowLayoutUtilities.GetRectYSwapScaled(safeArea, new Vector2(screenData.width, screenData.height), r, rectOffset);
+                    GUILayoutExt.DrawBoxNotFilled(safeArea, 1f, Color.magenta);
+
+                    foreach (var rSafe in orientationData.cutouts) {
+                        
+                        var rSafeRect = WindowLayoutUtilities.GetRectYSwapScaled(rSafe, new Vector2(screenData.width, screenData.height), r, rectOffset);
+                        GUI.BeginClip(rSafeRect);
+                        for (float step = -rSafeRect.height; step < rSafeRect.height; step += 5f) {
+
+                            var v1 = new Vector3(0f, step);
+                            var v2 = new Vector3(rSafeRect.width, step + 30f);
+                            Handles.color = Color.yellow;
+                            Handles.DrawAAPolyLine(2f, v1, v2);
+                            
+                        }
+                        GUI.EndClip();
+                        GUILayoutExt.DrawBoxNotFilled(rSafeRect, 1f, Color.yellow);
+                        
+                    }
+
+                }
+                
+            }
+
             return isHighlighted;
 
+        }
+
+        private static Rect GetRectYSwapScaled(Rect source, Vector2 sourceSize, Rect fullRect, Rect contentRect) {
+            
+            source.x /= sourceSize.x;
+            source.y /= sourceSize.y;
+            source.width /= sourceSize.x;
+            source.height /= sourceSize.y;
+
+            source.x *= contentRect.width;
+            source.y *= contentRect.height;
+            source.width *= contentRect.width;
+            source.height *= contentRect.height;
+
+            source.y = fullRect.height - source.y - source.height;
+
+            source.x += contentRect.x;
+            source.y += contentRect.y;
+
+            return source;
+            
         }
 
         private static Rect GetRect(RectTransform root, RectTransform child, Rect r, Vector2 resolution, bool withOffset) {
