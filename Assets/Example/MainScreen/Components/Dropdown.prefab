@@ -365,7 +365,7 @@ PrefabInstance:
     - target: {fileID: 1536854153975625398, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}
       propertyPath: registry.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2960413055845501550, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}
@@ -635,7 +635,7 @@ PrefabInstance:
     - target: {fileID: 6355195547688941941, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}
       propertyPath: registry.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5705866031551314162, guid: 2ab0f284eb3a24b27acd37bd977b3b02, type: 3}

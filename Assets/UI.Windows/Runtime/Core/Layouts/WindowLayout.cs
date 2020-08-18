@@ -12,7 +12,11 @@ namespace UnityEngine.UI.Windows {
         public Canvas canvas;
         public UnityEngine.UI.CanvasScaler canvasScaler;
 
+        public bool isRootLayout = true;
         public WindowLayoutElement[] layoutElements;
+
+        public bool useSafeZone;
+        public WindowLayoutSafeZone safeZone;
 
         private int order;
 
@@ -24,6 +28,18 @@ namespace UnityEngine.UI.Windows {
             rect.anchorMax = Vector2.one;
             rect.sizeDelta = Vector2.zero;
             rect.anchoredPosition = Vector2.zero;
+            
+        }
+
+        public override void OnInit() {
+            
+            base.OnInit();
+            
+            if (this.useSafeZone == true && this.isRootLayout == true) {
+                
+                this.safeZone.Apply();
+                
+            }
             
         }
 

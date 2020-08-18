@@ -39,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 799.99994, y: 600}
+  m_SizeDelta: {x: 799.99994, y: 599.99994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &9075030843538608721
 MonoBehaviour:
@@ -74,8 +74,11 @@ MonoBehaviour:
   registry: []
   canvas: {fileID: 3002262861325224963}
   canvasScaler: {fileID: 4562398388743874407}
+  isRootLayout: 1
   layoutElements:
   - {fileID: 5470113545036599192}
+  useSafeZone: 0
+  safeZone: {fileID: 0}
 --- !u!223 &3002262861325224963
 Canvas:
   m_ObjectHideFlags: 0

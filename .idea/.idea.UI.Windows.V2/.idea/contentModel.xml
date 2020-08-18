@@ -122,6 +122,7 @@
                 <e p="WindowLayout.cs" t="Include" />
                 <e p="WindowLayoutElement.cs" t="Include" />
                 <e p="WindowLayoutPreferences.cs" t="Include" />
+                <e p="WindowLayoutSafeZone.cs" t="Include" />
               </e>
               <e p="TargetFilters" t="Include">
                 <e p="WindowSystemTarget.cs" t="Include" />

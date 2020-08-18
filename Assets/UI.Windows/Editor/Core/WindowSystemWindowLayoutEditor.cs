@@ -23,6 +23,9 @@ namespace UnityEditor.UI.Windows {
         private SerializedProperty allowRegisterInRoot;
         private SerializedProperty autoRegisterSubObjects;
         private SerializedProperty hiddenByDefault;
+        
+        private SerializedProperty useSafeZone;
+        private SerializedProperty safeZone;
 
         private int selectedTab {
             get {
@@ -60,6 +63,9 @@ namespace UnityEditor.UI.Windows {
             this.autoRegisterSubObjects = this.serializedObject.FindProperty("autoRegisterSubObjects");
             this.hiddenByDefault = this.serializedObject.FindProperty("hiddenByDefault");
         
+            this.useSafeZone = this.serializedObject.FindProperty("useSafeZone");
+            this.safeZone = this.serializedObject.FindProperty("safeZone");
+            
             EditorHelpers.SetFirstSibling(this.targets);
 
             EditorApplication.update += this.Repaint;
@@ -152,6 +158,11 @@ namespace UnityEditor.UI.Windows {
                 })
                 );
             this.tabScrollPosition = scroll;
+            
+            GUILayout.Space(10f);
+
+            EditorGUILayout.PropertyField(this.useSafeZone);
+            if (this.useSafeZone.boolValue == true) EditorGUILayout.PropertyField(this.safeZone);
             
             GUILayout.Space(10f);
         

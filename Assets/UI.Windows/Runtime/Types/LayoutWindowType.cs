@@ -159,6 +159,7 @@ namespace UnityEngine.UI.Windows.WindowTypes {
             
             if (windowLayout.createPool == true) WindowSystem.GetPools().CreatePool(windowLayout);
             var windowLayoutInstance = WindowSystem.GetPools().Spawn(windowLayout, root.transform);
+            windowLayoutInstance.isRootLayout = (isInner == false);
             
             if (isInner == true) {
 
