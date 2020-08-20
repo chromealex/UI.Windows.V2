@@ -12,8 +12,8 @@ namespace UnityEngine.UI.Windows {
             var rect = this.rectTransform;
             rect.localScale = Vector3.one;
 
-            var w = Screen.currentResolution.width;
-            var h = Screen.currentResolution.height;
+            var w = Screen.width;
+            var h = Screen.height;
             var safeZone = Screen.safeArea;
             safeZone.xMin /= w;
             safeZone.yMin /= h;

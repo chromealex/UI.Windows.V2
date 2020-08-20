@@ -51,6 +51,18 @@ namespace UnityEditor.UI.Windows {
 
         public void OnEnable() {
 
+            try {
+
+                #pragma warning disable
+                var _ = this.serializedObject;
+                #pragma warning restore
+
+            } catch (System.Exception) {
+
+                return;
+
+            }
+
             this.createPool = this.serializedObject.FindProperty("createPool");
             
             this.objectState = this.serializedObject.FindProperty("objectState");
