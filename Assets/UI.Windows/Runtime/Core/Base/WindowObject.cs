@@ -211,6 +211,28 @@ namespace UnityEngine.UI.Windows {
         }
         #endif
 
+        public void SetTransformAs(RectTransform rectTransform) {
+            
+            var rect = this.rectTransform;
+            rect.localScale = rectTransform.localScale;
+            rect.anchorMin = rectTransform.anchorMin;
+            rect.anchorMax = rectTransform.anchorMax;
+            rect.sizeDelta = rectTransform.sizeDelta;
+            rect.anchoredPosition = rectTransform.anchoredPosition;
+            
+        }
+        
+        public void SetTransformFullRect() {
+            
+            var rect = this.rectTransform;
+            rect.localScale = Vector3.one;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.sizeDelta = Vector2.zero;
+            rect.anchoredPosition = Vector2.zero;
+            
+        }
+
         public bool IsVisible() {
 
             return this.IsVisibleSelf() == true && (this.rootObject != null ? this.rootObject.IsVisible() == true : true);

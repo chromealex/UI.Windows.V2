@@ -19,6 +19,134 @@ namespace UnityEditor.UI.Windows {
 
         }
 
+        private static Dictionary<long, Texture> tempPreviewBuffer = new Dictionary<long, Texture>();
+        private static Dictionary<long, Rect> tempPreviewRects = new Dictionary<long, Rect>();
+        private static Dictionary<long, double> tempPreviewTimers = new Dictionary<long, double>();
+
+        public static void DrawComponent(Rect rect, WindowComponent component, int customKey) {
+
+            var key = UnityEngine.UI.Windows.Utilities.UIWSMath.GetKey(component.GetHashCode(), customKey);
+
+            if (Event.current.type == EventType.MouseUp ||
+                Event.current.type == EventType.MouseDown ||
+                Event.current.type == EventType.MouseMove) {
+
+                if (WindowLayoutUtilities.tempPreviewTimers.ContainsKey(key) == true) {
+
+                    WindowLayoutUtilities.tempPreviewTimers[key] = 0d;
+
+                }
+
+            }
+            
+            if (Event.current.type == EventType.Repaint) {
+
+                if (WindowLayoutUtilities.tempPreviewTimers.TryGetValue(key, out var timer) == true) {
+
+                    if (EditorApplication.timeSinceStartup - timer > 100d) {
+                        
+                        if (WindowLayoutUtilities.tempPreviewRects.TryGetValue(key, out var bufferRect) == true) {
+
+                            if (Mathf.Abs(rect.width - bufferRect.width) > 1f ||
+                                Mathf.Abs(rect.height - bufferRect.height) > 1f) {
+
+                                WindowLayoutUtilities.tempPreviewRects.Remove(key);
+                                if (WindowLayoutUtilities.tempPreviewBuffer.TryGetValue(key, out var t) == true) {
+
+                                    Object.DestroyImmediate(t);
+
+                                }
+
+                                WindowLayoutUtilities.tempPreviewBuffer.Remove(key);
+                                WindowLayoutUtilities.tempPreviewTimers.Remove(key);
+
+                            }
+
+                        }
+
+                    } 
+                    
+                }
+                
+            }
+
+            if (WindowLayoutUtilities.tempPreviewBuffer.TryGetValue(key, out var buffer) == true) {
+                
+                EditorGUI.DrawTextureTransparent(rect, buffer, ScaleMode.ScaleToFit);
+                
+            } else if (Event.current.type == EventType.Repaint) {
+
+                var camera = new GameObject("Camera", typeof(Camera));
+                camera.hideFlags = HideFlags.HideAndDontSave;
+                
+                var cameraInstance = camera.GetComponent<Camera>();
+                var canvas = new GameObject("Canvas", typeof(Canvas), typeof(UnityEngine.UI.CanvasScaler));
+                canvas.hideFlags = HideFlags.HideAndDontSave;
+
+                var instance = Object.Instantiate(component, canvas.transform);
+                instance.gameObject.hideFlags = HideFlags.HideAndDontSave;
+                instance.SetTransformAs(component.transform as RectTransform);
+
+                var canvasInstance = canvas.GetComponent<Canvas>();
+                canvasInstance.renderMode = RenderMode.ScreenSpaceCamera;
+                canvasInstance.worldCamera = cameraInstance;
+                cameraInstance.clearFlags = CameraClearFlags.Depth;
+                var canvases = canvas.GetComponentsInChildren<Canvas>();
+                foreach (var c in canvases) {
+
+                    c.enabled = false;
+
+                }
+
+                var canvasScaler = canvas.GetComponent<UnityEngine.UI.CanvasScaler>();
+                canvasScaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+                canvasScaler.referenceResolution = new Vector2(rect.width, 0f);
+                canvasScaler.screenMatchMode = UnityEngine.UI.CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+                canvasScaler.matchWidthOrHeight = 0f;
+                
+                var type = canvasScaler.GetType();
+                var binds = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+                type.GetField("m_Canvas", binds).SetValue(canvasScaler, canvasInstance);
+                type.GetMethod("Handle", binds).Invoke(canvasScaler, null);
+                Canvas.ForceUpdateCanvases();
+
+                var rt = new RenderTexture((int)rect.width, (int)rect.height, 32, RenderTextureFormat.ARGB32);
+                WindowLayoutUtilities.tempPreviewBuffer.Add(key, rt);
+                WindowLayoutUtilities.tempPreviewRects.Add(key, rect);
+                WindowLayoutUtilities.tempPreviewTimers.Add(key, EditorApplication.timeSinceStartup);
+
+                cameraInstance.Render();
+                EditorApplication.delayCall += () => {
+                    
+                    foreach (var c in canvases) {
+
+                        c.enabled = true;
+
+                    }
+                    
+                    cameraInstance.targetTexture = rt;
+                    cameraInstance.Render();
+                    cameraInstance.targetTexture = null;
+
+                    foreach (var c in canvases) {
+
+                        c.enabled = false;
+
+                    }
+
+                    EditorApplication.delayCall += () => {
+
+                        GameObject.DestroyImmediate(camera);
+                        GameObject.DestroyImmediate(canvas);
+
+                    };
+
+                };
+
+            }
+
+        }
+        
         [System.Serializable]
         public struct DeviceInfo {
 
@@ -47,7 +175,7 @@ namespace UnityEditor.UI.Windows {
 
         private static List<DeviceInfo> loadedDevices = new List<DeviceInfo>();
         
-        public static void DrawLayout(int selectedIndexAspect, int selectedIndexInner, int selectedType, System.Action<int, int, int> onSet, ref Vector2 tabsScrollPosition, WindowLayout windowLayout, Rect r) {
+        public static void DrawLayout(int selectedIndexAspect, int selectedIndexInner, int selectedType, System.Action<int, int, int> onSet, ref Vector2 tabsScrollPosition, WindowLayout windowLayout, Rect r, UnityEngine.UI.Windows.WindowTypes.LayoutWindowType drawComponents) {
 
             var offset = 20f;
             var aspect = 4f / 3f;
@@ -221,13 +349,13 @@ namespace UnityEditor.UI.Windows {
             }
 
             var used = new HashSet<WindowLayout>();
-            WindowLayoutUtilities.DrawLayout(aspect, windowLayout, r, offset, used, screenData, orienData);
+            WindowLayoutUtilities.DrawLayout(aspect, windowLayout, r, offset, used, screenData, orienData, drawComponents);
             
             onSet.Invoke(selectedType, selectedIndexAspect, selectedIndexInner);
 
         }
         
-        public static bool DrawLayout(float aspect, WindowLayout windowLayout, Rect r, float offset = 20f, HashSet<WindowLayout> used = null, DeviceInfo.ScreenData screenData = default, DeviceInfo.OrientationData orientationData = default) {
+        public static bool DrawLayout(float aspect, WindowLayout windowLayout, Rect r, float offset = 20f, HashSet<WindowLayout> used = null, DeviceInfo.ScreenData screenData = default, DeviceInfo.OrientationData orientationData = default, UnityEngine.UI.Windows.WindowTypes.LayoutWindowType drawComponents = null) {
 
             if (used.Contains(windowLayout) == true) return false;
             used.Add(windowLayout);
@@ -287,10 +415,8 @@ namespace UnityEditor.UI.Windows {
 
                     var sizeDelta = Vector2.zero;
                     float scaleFactor = 0;
-                    switch (windowLayout.canvasScaler.screenMatchMode)
-                    {
-                        case UnityEngine.UI.CanvasScaler.ScreenMatchMode.MatchWidthOrHeight:
-                        {
+                    switch (windowLayout.canvasScaler.screenMatchMode) {
+                        case UnityEngine.UI.CanvasScaler.ScreenMatchMode.MatchWidthOrHeight: {
                             const float kLogBase = 2;
                             // We take the log of the relative width and height before taking the average.
                             // Then we transform it back in the original space.
@@ -304,13 +430,13 @@ namespace UnityEditor.UI.Windows {
                             scaleFactor = Mathf.Pow(kLogBase, logWeightedAverage);
                             break;
                         }
-                        case UnityEngine.UI.CanvasScaler.ScreenMatchMode.Expand:
-                        {
+
+                        case UnityEngine.UI.CanvasScaler.ScreenMatchMode.Expand: {
                             scaleFactor = Mathf.Min(screenSize.x / windowLayout.canvasScaler.referenceResolution.x, screenSize.y / windowLayout.canvasScaler.referenceResolution.y);
                             break;
                         }
-                        case UnityEngine.UI.CanvasScaler.ScreenMatchMode.Shrink:
-                        {
+
+                        case UnityEngine.UI.CanvasScaler.ScreenMatchMode.Shrink: {
                             scaleFactor = Mathf.Max(screenSize.x / windowLayout.canvasScaler.referenceResolution.x, screenSize.y / windowLayout.canvasScaler.referenceResolution.y);
                             break;
                         }
@@ -370,12 +496,26 @@ namespace UnityEditor.UI.Windows {
                 var rect = WindowLayoutUtilities.GetRect(windowLayout.rectTransform, element.rectTransform, r, resolution, offset > 0f);
 
                 using (new GUILayoutExt.GUIColorUsing(highlightedIndex < 0 || i == highlightedIndex ? Color.white : new Color(1f, 1f, 1f, 0.6f))) {
-                    WindowSystemSidePropertyDrawer.DrawLayoutMode(rect, element.rectTransform);
+
+                    if (drawComponents != null) {
+
+                        drawComponents.layouts.GetActive().GetLayoutComponentItemByTagId(element.tagId, windowLayout, out var componentItem);
+                        var comp = componentItem.component.GetEditorRef<WindowComponent>();
+                        if (comp != null) WindowLayoutUtilities.DrawComponent(rect, comp, componentItem.localTag);
+                        
+                        WindowSystemSidePropertyDrawer.DrawLayoutMode(rect, element.rectTransform);
+
+                    } else {
+
+                        WindowSystemSidePropertyDrawer.DrawLayoutMode(rect, element.rectTransform);
+
+                    }
+
                 }
 
                 if (element.innerLayout != null) {
 
-                    hasInnerHighlight = WindowLayoutUtilities.DrawLayout(aspect, element.innerLayout, rect, offset: 0f, used: used);
+                    hasInnerHighlight = WindowLayoutUtilities.DrawLayout(aspect, element.innerLayout, rect, offset: 0f, used: used, drawComponents: drawComponents);
                     //WindowLayoutUtilities.DrawLayoutElements(highlightedIndex, rect, resolution, element.innerLayout, used);
 
                 }
@@ -416,14 +556,31 @@ namespace UnityEditor.UI.Windows {
                         
                         var rSafeRect = WindowLayoutUtilities.GetRectYSwapScaled(rSafe, new Vector2(screenData.width, screenData.height), r, rectOffset);
                         GUI.BeginClip(rSafeRect);
-                        for (float step = -rSafeRect.height; step < rSafeRect.height; step += 5f) {
 
-                            var v1 = new Vector3(0f, step);
-                            var v2 = new Vector3(rSafeRect.width, step + 30f);
-                            Handles.color = Color.yellow;
-                            Handles.DrawAAPolyLine(2f, v1, v2);
+                        if (rSafeRect.width < rSafeRect.height) {
+
+                            for (float step = -rSafeRect.height; step < rSafeRect.height; step += 5f) {
+
+                                var v1 = new Vector3(0f, step);
+                                var v2 = new Vector3(rSafeRect.width, step + rSafeRect.width);
+                                Handles.color = Color.yellow;
+                                Handles.DrawAAPolyLine(2f, v1, v2);
+
+                            }
+
+                        } else {
                             
+                            for (float step = -rSafeRect.width; step < rSafeRect.width; step += 5f) {
+
+                                var v1 = new Vector3(step, 0f);
+                                var v2 = new Vector3(step + rSafeRect.height, rSafeRect.height);
+                                Handles.color = Color.yellow;
+                                Handles.DrawAAPolyLine(2f, v1, v2);
+
+                            }
+
                         }
+
                         GUI.EndClip();
                         GUILayoutExt.DrawBoxNotFilled(rSafeRect, 1f, Color.yellow);
                         

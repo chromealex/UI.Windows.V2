@@ -49,7 +49,19 @@ namespace UnityEditor.UI.Windows {
         }
 
         public virtual void OnEnable() {
-        
+
+            try {
+
+                #pragma warning disable
+                var _ = this.serializedObject;
+                #pragma warning restore
+
+            } catch (System.Exception) {
+
+                return;
+
+            }
+            
             this.createPool = this.serializedObject.FindProperty("createPool");
 
             this.objectState = this.serializedObject.FindProperty("objectState");
@@ -219,6 +231,24 @@ namespace UnityEditor.UI.Windows {
     
             EditorHelpers.SetFirstSibling(this.targets);
 
+        }
+
+        public override GUIContent GetPreviewTitle() {
+            
+            return new GUIContent("Component Preview");
+            
+        }
+
+        public override bool HasPreviewGUI() {
+            
+            return this.targets.Length == 1;
+            
+        }
+
+        public override void OnPreviewGUI(Rect r, GUIStyle background) {
+            
+            WindowLayoutUtilities.DrawComponent(r, this.target as WindowComponent, 0);
+            
         }
 
         public override void OnInspectorGUI() {

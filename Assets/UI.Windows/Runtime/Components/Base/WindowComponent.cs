@@ -5,7 +5,7 @@ using UnityEngine;
 namespace UnityEngine.UI.Windows {
 
     [DisallowMultipleComponent]
-    public class WindowComponent : WindowObject {
+    public class WindowComponent : WindowObject, IHasPreview {
 
         [System.Serializable]
         public struct ComponentModules {

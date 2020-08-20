@@ -17,7 +17,7 @@ namespace UnityEditor.UI.Windows {
 
             if (property.objectReferenceValue == null) {
 
-                DrawRequired(position, RequiredType.Error);
+                WindowSystemRequiredReferenceDrawer.DrawRequired(position, RequiredType.Error);
                 
             }
 

@@ -20,17 +20,6 @@ namespace UnityEngine.UI.Windows {
 
         private int order;
 
-        public void SetTransformFullRect() {
-            
-            var rect = this.rectTransform;
-            rect.localScale = Vector3.one;
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.sizeDelta = Vector2.zero;
-            rect.anchoredPosition = Vector2.zero;
-            
-        }
-
         public override void OnInit() {
             
             base.OnInit();

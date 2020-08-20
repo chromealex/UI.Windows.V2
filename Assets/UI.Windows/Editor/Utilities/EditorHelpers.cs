@@ -6,8 +6,44 @@ using System.Reflection;
 
 namespace UnityEditor.UI.Windows {
 
+    public struct EditPrefabAssetScope : System.IDisposable {
+ 
+        public readonly string assetPath;
+        public readonly GameObject prefabRoot;
+ 
+        public EditPrefabAssetScope(string assetPath) {
+            this.assetPath = assetPath;
+            this.prefabRoot = PrefabUtility.LoadPrefabContents(assetPath);
+        }
+ 
+        public void Dispose() {
+            PrefabUtility.SaveAsPrefabAsset(this.prefabRoot, this.assetPath);
+            PrefabUtility.UnloadPrefabContents(this.prefabRoot);
+        }
+    }
+
     public class EditorHelpers {
 
+        public static void AddSafeZone(Transform root) {
+            
+            var safeGo = new GameObject("SafeZone", typeof(UnityEngine.UI.Windows.WindowLayoutSafeZone));
+            safeGo.transform.SetParent(root);
+            safeGo.GetComponent<UnityEngine.UI.Windows.WindowLayoutSafeZone>().ValidateEditor();
+            safeGo.GetComponent<UnityEngine.UI.Windows.WindowLayoutSafeZone>().SetTransformFullRect();
+                                
+            for (int i = root.transform.childCount - 1; i >= 0; --i) {
+
+                var child = root.transform.GetChild(i);
+                var scale = child.localScale;
+                child.SetParent(safeGo.transform, worldPositionStays: true);
+                child.localScale = scale;
+
+            }
+
+            root.GetComponent<UnityEngine.UI.Windows.WindowLayout>().safeZone = safeGo.GetComponent<UnityEngine.UI.Windows.WindowLayoutSafeZone>();
+
+        }
+        
         public static void SetFirstSibling(Object[] objects, int siblingIndexTarget = 0) {
 
             foreach (var obj in objects) {

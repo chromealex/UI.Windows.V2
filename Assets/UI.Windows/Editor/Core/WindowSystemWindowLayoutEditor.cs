@@ -50,7 +50,7 @@ namespace UnityEditor.UI.Windows {
         }
 
         public void OnEnable() {
-        
+
             this.createPool = this.serializedObject.FindProperty("createPool");
             
             this.objectState = this.serializedObject.FindProperty("objectState");
@@ -96,14 +96,14 @@ namespace UnityEditor.UI.Windows {
                 this.selectedType = type;
                 this.selectedIndexAspect = idx;
                 this.selectedIndexInner = inner;
-                    
-            }, ref this.tabsScrollPosition, windowLayout, r);
+                
+            }, ref this.tabsScrollPosition, windowLayout, r, drawComponents: null);
             
         }
 
         public override bool HasPreviewGUI() {
             
-            return true;
+            return this.targets.Length == 1;
             
         }
 
@@ -162,7 +162,43 @@ namespace UnityEditor.UI.Windows {
             GUILayout.Space(10f);
 
             EditorGUILayout.PropertyField(this.useSafeZone);
-            if (this.useSafeZone.boolValue == true) EditorGUILayout.PropertyField(this.safeZone);
+            if (this.useSafeZone.boolValue == true) {
+                
+                GUILayoutExt.Box(2f, 2f, () => {
+                    
+                    EditorGUILayout.PropertyField(this.safeZone);
+                    if (this.safeZone.objectReferenceValue == null && this.targets.Length == 1) {
+
+                        GUILayout.BeginHorizontal();
+                        GUILayout.FlexibleSpace();
+                        if (GUILayout.Button("Generate", GUILayout.Width(80f), GUILayout.Height(30f)) == true) {
+
+                            var obj = this.target as Component;
+                            if (PrefabUtility.IsPartOfAnyPrefab(obj) == true) {
+
+                                var path = AssetDatabase.GetAssetPath(obj.gameObject);
+                                using (var edit = new EditPrefabAssetScope(path)) {
+
+                                    EditorHelpers.AddSafeZone(edit.prefabRoot.transform);
+                                
+                                }
+                            
+                            } else {
+
+                                var root = obj.gameObject;
+                                EditorHelpers.AddSafeZone(root.transform);
+                            
+                            }
+                        
+                        }
+                        GUILayout.FlexibleSpace();
+                        GUILayout.EndHorizontal();
+                        
+                    }
+
+                });
+                
+            }
             
             GUILayout.Space(10f);
         

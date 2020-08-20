@@ -47,7 +47,7 @@ namespace UnityEditor.UI.Windows {
             var directRef = property.FindPropertyRelative("directRef");
             var obj = Resource.GetEditorRef(guid.stringValue, type, (Resource.ObjectType)objectType.enumValueIndex, directRef.objectReferenceValue);
             var newObj = EditorGUI.ObjectField(objRect, label, obj, type, allowSceneObjects: true);
-            WindowSystemRequiredReferenceDrawer.DrawRequired(objRect, requiredType);
+            if (newObj == null) WindowSystemRequiredReferenceDrawer.DrawRequired(objRect, requiredType);
             if (newObj != obj) {
 
                 property.serializedObject.Update();

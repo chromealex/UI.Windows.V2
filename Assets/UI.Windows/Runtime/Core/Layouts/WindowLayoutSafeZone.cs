@@ -31,7 +31,7 @@ namespace UnityEngine.UI.Windows {
             rect.anchoredPosition = Vector2.zero;
 
         }
-        
+
     }
 
 }

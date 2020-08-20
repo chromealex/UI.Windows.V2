@@ -125,7 +125,7 @@ namespace UnityEditor.UI.Windows {
                     this.selectedIndexAspect = idx;
                     this.selectedIndexInner = inner;
                     
-                }, ref this.tabsScrollPosition, windowLayout, r);
+                }, ref this.tabsScrollPosition, windowLayout, r, drawComponents: layoutWindowType);
 
             }
             

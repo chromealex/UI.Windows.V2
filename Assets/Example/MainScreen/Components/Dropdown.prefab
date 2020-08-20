@@ -82,7 +82,7 @@ MonoBehaviour:
   dropSide: 1
   minMaxSizeX: {x: 100, y: 100}
   minMaxSizeY: {x: 100, y: 600}
-  autoCloseOnChoose: 1
+  autoCloseOnChoose: 0
   autoCloseOnOutClick: 1
 --- !u!225 &-8435149187074854244
 CanvasGroup:
@@ -360,12 +360,42 @@ PrefabInstance:
     - target: {fileID: 1528869283387241297, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}
       propertyPath: registry.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1536854153975625398, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}
       propertyPath: registry.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536854153975625398, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[0].holder
+      value: 
+      objectReference: {fileID: 7982413985908487715}
+    - target: {fileID: 1536854153975625398, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[0].hiddenByDefault
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536854153975625398, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[0].hiddenByDefaultDescription
+      value: Value is hold by ListScrollableComponentModule
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536854153975625398, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[1].holder
+      value: 
+      objectReference: {fileID: 7982413985908487715}
+    - target: {fileID: 1536854153975625398, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[1].allowRegisterInRoot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536854153975625398, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[1].allowRegisterInRootDescription
+      value: Value is hold by ListScrollableComponentModule
       objectReference: {fileID: 0}
     - target: {fileID: 2960413055845501550, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}
@@ -635,7 +665,37 @@ PrefabInstance:
     - target: {fileID: 6355195547688941941, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
         type: 3}
       propertyPath: registry.Array.size
-      value: 0
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355195547688941941, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[0].holder
+      value: 
+      objectReference: {fileID: 7982413985908487715}
+    - target: {fileID: 6355195547688941941, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[0].hiddenByDefault
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355195547688941941, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[0].hiddenByDefaultDescription
+      value: Value is hold by ListScrollableComponentModule
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355195547688941941, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[1].holder
+      value: 
+      objectReference: {fileID: 7982413985908487715}
+    - target: {fileID: 6355195547688941941, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[1].allowRegisterInRoot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355195547688941941, guid: 2ab0f284eb3a24b27acd37bd977b3b02,
+        type: 3}
+      propertyPath: registry.Array.data[1].allowRegisterInRootDescription
+      value: Value is hold by ListScrollableComponentModule
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5705866031551314162, guid: 2ab0f284eb3a24b27acd37bd977b3b02, type: 3}
